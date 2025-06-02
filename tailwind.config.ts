@@ -12,6 +12,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+       fontFamily: {
+        garamond: ['EB Garamond', 'serif'],
+        WorkSans: ['Work Sans', 'sans-serif']
+      }
     },
   },
   plugins: [],

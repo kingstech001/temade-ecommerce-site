@@ -19,3 +19,65 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 0;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.marquee-container {
+  gap: 16px;
+  padding-left: 36px;
+}
+/* globals.css */
+.font-WorkSans {
+  font-family: 'Work Sans', sans-serif;
+}
+
+/* For email input placeholder */
+::placeholder {
+  color: #5A554C;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #5A554C;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #5A554C;
+}
+
+/* For smooth transitions */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Focus states */
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #5A554C;
+}
