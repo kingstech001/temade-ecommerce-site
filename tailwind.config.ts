@@ -17,6 +17,6 @@ export default {
         WorkSans: ['Work Sans', 'sans-serif']
       }
     },
+    plugins: [require('tailwind-scrollbar-hide')],
   },
-  plugins: [],
 } satisfies Config;

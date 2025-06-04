@@ -4,6 +4,13 @@ import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
+import { EB_Garamond } from 'next/font/google';
+
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+});
+
 
 function CategorySection() {
   const sectionRef = useRef(null);
@@ -25,64 +32,54 @@ function CategorySection() {
   return (
     <section
       ref={sectionRef}
-      className="relative mt-[94px] bg-[#FFFBEB] min-h-screen overflow-hidden"
+      className=" mt-[94px] bg-[#FFFBEB] md:min-h-[130vh] overflow-hidden flex justify-center items-center md:mx-16"
+      style={{
+        backgroundImage: "url('/section2-image.png')",
+        backgroundPosition: "center 6%",
+      }}
     >
-      {/* Image Section */}
-      <div className="mx-auto w-full max-w-[1033px] px-4 md:px-0">
-        <div className="relative aspect-square md:aspect-auto md:h-[1024px]">
-          <Image
-            src="/section2-image.png"
-            alt="Fashion Categories"
-            fill
-            className="object-cover"
-            quality={90}
-            sizes="(max-width: 768px) 90vw, 1033px"
-          />
-        </div>
-      </div>
-
-      {/* Animated Category Texts + Button */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%] flex flex-col items-center z-10 space-y-10"
-        style={{ opacity }}
-      >
-        {/* Text Row */}
-        <div className="flex justify-center items-center gap-x-[300px] w-full">
-          {/* 🔧 Adjust gap-x-[...] to control distance between texts */}
-
-          <motion.span
-            style={{ y: pantsY }}
-            className="text-2xl md:text-4xl lg:text-[48px] font-bold text-white mix-blend-difference"
-          >
-            PANTS
-          </motion.span>
-
-          <motion.span
-            style={{ y: dressesY }}
-            className="text-2xl md:text-4xl lg:text-[48px] font-bold text-[#8D2741]"
-          >
-            DRESSES
-          </motion.span>
-
-          <motion.span
-            style={{ y: skirtsY }}
-            className="text-2xl md:text-4xl lg:text-[48px] font-bold text-white mix-blend-difference"
-          >
-            SKIRTS
-          </motion.span>
+      <div className='flex w-full flex-col items-center justify-center gap-8 pb-20 relative'>
+        <div
+          className={`${ebGaramond.className} block m-auto text-center md:flex justify-between w-full md:absolute -top-20`}
+        >
+          <span>
+            <h2
+              className=" text-[44px] font-extrabold text-[#360713] drop-shadow-lg"
+            >
+              PANTS
+            </h2>
+          </span>
+          <span>
+            <h2
+              className=" text-[44px] font-extrabold text-[#fff] drop-shadow-lg"
+            >
+              DRESSES
+            </h2>
+          </span>
+          <span>
+            <h2
+              className=" text-[44px] font-extrabold text-[#360713] drop-shadow-lg"
+            >
+              SKIRTS
+            </h2>
+          </span>
         </div>
 
         {/* Shop Now Button */}
-        <motion.button
-          className="mt-8 bg-[#8D2741] text-white px-6 py-3 rounded-lg hover:bg-[#701d34] transition flex items-center"
-          whileHover={{ scale: 1.05 }}
+        <button
+          className="border-[2px] border-white hover:border-[#701d34] text-white px-8 py-4 rounded-lg hover:bg-[#701d34] transition flex items-center m-auto"
         >
-          <span className="text-base md:text-lg lg:text-xl font-medium">SHOP NOW</span>
-          <ArrowRight className="ml-2 md:ml-[10px]" size={20} />
-        </motion.button>
-      </motion.div>
+          SHOP NOW
+          <motion.div
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowRight className="w-5 h-5" />
+          </motion.div>
+        </button>
+      </div>
     </section>
   );
 }
 
-export default CategorySection;
+export default CategorySection; 
