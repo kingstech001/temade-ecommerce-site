@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';

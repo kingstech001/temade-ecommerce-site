@@ -1,8 +1,7 @@
 'use client';
 
-import { useScroll, useTransform, motion } from 'framer-motion';
+import {  motion } from 'framer-motion';
 import { useRef } from 'react';
-import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { EB_Garamond } from 'next/font/google';
 
@@ -15,19 +14,6 @@ const ebGaramond = EB_Garamond({
 function CategorySection() {
   const sectionRef = useRef(null);
 
-  // Set up scroll-based parallax
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Text movement effect
-  const pantsY = useTransform(scrollYProgress, [0, 1], ['-80px', '50px']);
-  const dressesY = useTransform(scrollYProgress, [0, 1], ['-40px', '20px']);
-  const skirtsY = useTransform(scrollYProgress, [0, 1], ['-80px', '50px']);
-
-  // Opacity effect as they come into view
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
     <section

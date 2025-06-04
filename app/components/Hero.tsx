@@ -23,7 +23,6 @@ const Hero = () => {
     offset: ["start end", "end start"],
   });
 
-  const textY = useTransform(scrollYProgress, [0, 1], [-100, 0]);
   const buttonY = useTransform(scrollYProgress, [0, 1], [100, 0]);
   const opacity = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
 
