@@ -20,18 +20,18 @@ export default function HeroBanner() {
       </div>
 
       {/* Centered Container */}
-      <div className="relative flex h-full items-center justify-center">
+      {/* <div className="relative flex h-full items-center justify-center">
         <div 
-          className="flex flex-col border-white border-2 items-center justify-center gap-8 border-3 border-white rounded-[4px] p-[100px] text-center"
+          className="flex flex-col border-2 items-center justify-center gap-8 border-3 border-white rounded-[4px] p-[100px] text-center"
           style={{
             width: '613px',
             height: '621px',
             marginTop: '127px'
           }}
         >
-          {/* Text Content */}
+         
           <div className="font-garamond space-y-8 text-white">
-            <h1 className="text-[76px] leading-none font-medium">
+            <h1 className=" leading-none font-medium">
               Effortless,
               <br />
               Beautiful,
@@ -40,13 +40,13 @@ export default function HeroBanner() {
             </h1>
           </div>
 
-          {/* Shop Now Button */}
+          
           <button className="mt-8 flex items-center gap-2 border-2 border-white px-8 py-3 text-white transition-opacity hover:opacity-80">
             <span className="text-lg">SHOP TEMADE</span>
             <ArrowRight className="h-5 w-5" />
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

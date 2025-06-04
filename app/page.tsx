@@ -19,9 +19,9 @@ export default function Home() {
       <NewArrivals />
       <HeroBanner />
       <TextMarqueeBar />
-   <div className="w-full flex justify-center">
-       <Footer />
-    </div>
+      <div className="w-full flex justify-center">
+        <Footer />
+      </div>
     </main>
   );
 }
