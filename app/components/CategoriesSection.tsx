@@ -1,6 +1,7 @@
 'use client';
 
-import { useScroll, useTransform, motion } from 'framer-motion';
+import { 
+   motion } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
@@ -14,21 +15,6 @@ const ebGaramond = EB_Garamond({
 
 function CategorySection() {
   const sectionRef = useRef(null);
-
-  // Set up scroll-based parallax
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Text movement effect
-  const pantsY = useTransform(scrollYProgress, [0, 1], ['-80px', '50px']);
-  const dressesY = useTransform(scrollYProgress, [0, 1], ['-40px', '20px']);
-  const skirtsY = useTransform(scrollYProgress, [0, 1], ['-80px', '50px']);
-
-  // Opacity effect as they come into view
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
-
   return (
     <section
       ref={sectionRef}
@@ -40,25 +26,25 @@ function CategorySection() {
     >
       <div className='flex w-full flex-col items-center justify-center gap-8 pb-20 relative'>
         <div
-          className={`${ebGaramond.className} block m-auto text-center md:flex justify-between w-full md:absolute -top-20`}
+          className={`${ebGaramond.className} block m-auto text-center md:flex justify-between w-full  -top-20`}
         >
           <span>
             <h2
-              className=" text-[44px] font-extrabold text-[#360713] drop-shadow-lg"
+              className="text-[44px] lg:text-[76px] font-extrabold text-[#360713] drop-shadow-lg"
             >
               PANTS
             </h2>
           </span>
           <span>
             <h2
-              className=" text-[44px] font-extrabold text-[#fff] drop-shadow-lg"
+              className="text-[60px] lg:text-[101px] font-extrabold text-[#fff] drop-shadow-lg"
             >
               DRESSES
             </h2>
           </span>
           <span>
             <h2
-              className=" text-[44px] font-extrabold text-[#360713] drop-shadow-lg"
+              className="text-[44px] lg:text-[76px] font-extrabold text-[#360713] drop-shadow-lg"
             >
               SKIRTS
             </h2>
