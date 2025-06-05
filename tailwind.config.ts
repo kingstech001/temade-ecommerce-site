@@ -8,6 +8,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontSize: {
+      responsive: 'clamp(2rem, 5vw, 4.74rem)',
+      responsive2: 'clamp(3rem, 5vw, 6.3125rem)',
+    },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

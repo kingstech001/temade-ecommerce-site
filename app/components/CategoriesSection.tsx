@@ -1,7 +1,8 @@
 'use client';
 
-import { 
-   motion } from 'framer-motion';
+import {
+  motion
+} from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
@@ -18,39 +19,21 @@ function CategorySection() {
   return (
     <section
       ref={sectionRef}
-      className=" mt-[94px] bg-[#FFFBEB] md:min-h-[130vh] overflow-hidden flex justify-center items-center md:mx-16"
-      style={{
-        backgroundImage: "url('/section2-image.png')",
-        backgroundPosition: "center 6%",
-      }}
+      className=" mt-[94px] bg-[#FFFBEB] md:min-h-[150vh] lg:h-[50vh] overflow-hidden flex flex-col justify-center  relative"
     >
-      <div className='flex w-full flex-col items-center justify-center gap-8 pb-20 relative'>
-        <div
-          className={`${ebGaramond.className} block m-auto text-center md:flex justify-between w-full  -top-20`}
-        >
-          <span>
-            <h2
-              className="text-[44px] lg:text-[76px] font-extrabold text-[#360713] drop-shadow-lg"
-            >
-              PANTS
-            </h2>
-          </span>
-          <span>
-            <h2
-              className="text-[60px] lg:text-[101px] font-extrabold text-[#fff] drop-shadow-lg"
-            >
-              DRESSES
-            </h2>
-          </span>
-          <span>
-            <h2
-              className="text-[44px] lg:text-[76px] font-extrabold text-[#360713] drop-shadow-lg"
-            >
-              SKIRTS
-            </h2>
-          </span>
-        </div>
+      <div className=" bg-[#FFFBEB] min-h-screen md:min-h-[150vh] bg-center bg-no-repeat sm:mx-8"
+        style={{
+          backgroundImage: "url('/section2-image.png')",
+          backgroundPosition: "center 6%",
+        }}>
 
+      </div>
+      <div className=' absolute top-[30%] sm:top-[50%] left-0 w-full h-full  text-center z-10'>
+        <div className={`${ebGaramond.className} font-medium sm:flex justify-between items-center w-full mb-[90px]`}>
+          <h2 className='text-responsive text-[#FFFFFF] sm:text-[#CA6F86]'>PANTS</h2>
+          <h2 className='text-responsive2 text-[#FFFFFF]'>DRESSES</h2>
+          <h2 className='text-responsive text-[#FFFFFF] sm:text-[#CA6F86]'>SKIRTS</h2>
+        </div>
         {/* Shop Now Button */}
         <button
           className="border-[2px] border-white hover:border-[#701d34] text-white px-8 py-4 rounded-lg hover:bg-[#701d34] transition flex items-center m-auto"

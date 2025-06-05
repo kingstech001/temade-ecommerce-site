@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Footer() {
@@ -14,12 +16,18 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-[#FFD7E1] py-8 px-4 md:px-16 mx-auto max-w-screen-2xl">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="flex flex-1 justify-between md:text-left">
         {/* Column 1 - Logo */}
-        <div className="flex flex-col gap-1">
-          <h3 className="font-WorkSans font-medium text-[9px] md:text-[9px] text-[#5A554C]">
-            TEMADE
-          </h3>
+        <div className="flex flex-col gap-1 flex-wrap">
+          <Link href="/">
+            <Image
+              src="/temade-icon.png"
+              alt="Temade Logo"
+              width={40}
+              height={40}
+              className="h-10 w-auto"
+            />
+          </Link>
           <p className="font-WorkSans font-medium text-[9px] text-[#5A554C]">
             2025 ALL RIGHTS RESERVED
           </p>
