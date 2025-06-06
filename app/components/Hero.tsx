@@ -35,7 +35,7 @@ const Hero = () => {
         backgroundPosition: "center 15%",
       }}
     >
-      <div className="absolute inset-0 flex flex-col items-center justify-end text-center text-white bg-black/40 z-10 pb-20">
+      <div className="absolute inset-0 flex flex-col items-center justify-end text-center text-white bg-black/40 z-10 pb-[15rem] md:pb-40">
         <motion.div
           
           className="flex flex-col items-center"

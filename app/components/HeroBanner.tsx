@@ -1,51 +1,39 @@
 'use client';
 
-import Image from 'next/image';
+
+import { ArrowRight } from 'lucide-react';
+
 
 export default function HeroBanner() {
   return (
-    <section className="relative h-[875px] w-full">
-      <div className="absolute inset-0">
-        <div className="relative h-full w-full opacity-50">
-          <Image
-            src="/temade-hero1.jpg"
-            alt="Temade Background"
-            fill
-            className="object-fit"
-            quality={100}
-          />
-        </div>
-        <div className="absolute inset-0 bg-[#36071380]" />
-      </div>
-
+    <section
+      className="relative w-full min-h-svh md:min-h-[130vh]  bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url('/temade-hero1.jpg')`,
+        backgroundPosition: 'center 15%',
+      }}
+    >
       {/* Centered Container */}
-      {/* <div className="relative flex h-full items-center justify-center">
-        <div 
-          className="flex flex-col border-2 items-center justify-center gap-8 border-3 border-white rounded-[4px] p-[100px] text-center"
-          style={{
-            width: '613px',
-            height: '621px',
-            marginTop: '127px'
-          }}
+      <div className="relative flex  items-center justify-center">
+        <div
+          className="flex items-center justify-center text-center w-full min-h-svh md:min-h-[130vh]  bg-opacity-50 bg-black p-8"
         >
-         
-          <div className="font-garamond space-y-8 text-white">
-            <h1 className=" leading-none font-medium">
-              Effortless,
-              <br />
-              Beautiful,
-              <br />
-              Sustainable.
-            </h1>
-          </div>
+          <div className='border-[2px] border-white p-8 md:p-16 rounded-[5px] '>
+            <div className="font-garamond space-y-8 text-white max-w-[358px]">
+              <h1 className="leading-none font-medium text-4xl md:text-5xl">
+                Effortless,
+                Beautiful,
+                Sustainable.
+              </h1>
+            </div>
 
-          
-          <button className="mt-8 flex items-center gap-2 border-2 border-white px-8 py-3 text-white transition-opacity hover:opacity-80">
-            <span className="text-lg">SHOP TEMADE</span>
-            <ArrowRight className="h-5 w-5" />
-          </button>
+            <button className="mt-8 flex items-center gap-2 border-[2px] border-white px-8 py-3 text-white transition-opacity hover:opacity-80 rounded-[5px] m-auto">
+              <span className="text-lg">SHOP TEMADE</span>
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
-      </div> */}
+      </div>
     </section>
   );
 }
