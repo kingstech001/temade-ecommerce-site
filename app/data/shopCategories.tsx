@@ -7,8 +7,8 @@ export type CategoryImage = {
 export const baseCategoryImages: Record<string, CategoryImage[]> = {
   Dresses: [
     { src: "/Rectangle.jpg", alt: "Dress 1", name: "Floral Dress" },
-    { src: "/Rectangle-2.jpg", alt: "Dress 2", name: "Casual Maxi" },
-    { src: "/Rectangle-3.jpg", alt: "Skirt 1", name: "Pleated Skirt" },
+    { src: "/dresses-2.jpg", alt: "Dress 2", name: "Casual Maxi" },
+    { src: "/dresses-1.jpg", alt: "Dress-3", name: "Pleated dress" },
   ],
   Skirts: [
     { src: "/Rectangle.jpg", alt: "Dress 1", name: "Floral Dress" },
@@ -23,7 +23,7 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
   Pants: [
     { src: "/Rectangle.jpg", alt: "Dress 1", name: "Floral Dress" },
     { src: "/Rectangle-2.jpg", alt: "Dress 2", name: "Casual Maxi" },
-    { src: "/Rectangle-3.jpg", alt: "Skirt 1", name: "Pleated Skirt" },
+    { src: "/pant.jpg", alt: "Skirt 1", name: "Pleated Skirt" },
   ],
   "The Wholeness Collection": [
     { src: "/Rectangle.jpg", alt: "Dress 1", name: "Floral Dress" },
