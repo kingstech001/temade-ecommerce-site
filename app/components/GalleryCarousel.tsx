@@ -4,13 +4,14 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import { galleryImages } from '../data/galleryImages'; // 👈 import here
 
 function GalleryCarousel() {
   const autoplay = useRef(
     Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: false })
   );
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
+  const [emblaRef] = useEmblaCarousel(
     {
       loop: true,
       align: 'start',
@@ -19,20 +20,8 @@ function GalleryCarousel() {
     [autoplay.current]
   );
 
-  const galleryImages = [
-    '/gallery-1.jpg',
-    '/gallery-2.jpg',
-    '/gallery-1.jpg',
-    '/gallery-2.jpg',
-    '/gallery-1.jpg',
-    '/gallery-2.jpg',
-    '/gallery-1.jpg',
-    '/new-arrival-1.jpg',
-  ];
-
   return (
     <section className="relative bg-[#FFFBEB] py-16 overflow-hidden">
-
       <div ref={emblaRef} className="overflow-hidden cursor-grab">
         <div className="flex">
           {galleryImages.map((imgSrc, index) => (

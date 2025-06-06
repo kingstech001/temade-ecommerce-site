@@ -3,6 +3,8 @@ import { Geist, Geist_Mono,  } from "next/font/google";
 import { EB_Garamond } from 'next/font/google';
 import { Work_Sans } from 'next/font/google';
 import "./globals.css";
+import NavBar from "./components/NavBar";
+import TopBar from "./components/TopBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +42,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond} ${workSans.variable} bg-[#FFFBEB] antialiased`}
       >
+        <TopBar />
+        <NavBar />
         {children}
       </body>
     </html>

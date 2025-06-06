@@ -4,59 +4,12 @@ import { Heart } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-
-const newArrivals = [
-  {
-    id: 1,
-    name: 'Embroidered Kaftan Dress',
-    price: '₦45,000',
-    sizes: ['M', 'L', 'XL'],
-    image: '/new-arrival-1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Handwoven Silk Skirt',
-    price: '₦32,500',
-    sizes: ['S', 'M', 'L'],
-    image: '/new-arrival-2.jpg',
-  },
-  {
-    id: 3,
-    name: 'Traditional Print Pants',
-    price: '₦28,900',
-    sizes: ['One Size'],
-    image: '/new-arrival-3.jpg',
-  },
-  {
-    id: 4,
-    name: 'Embroidered Kaftan Dress',
-    price: '₦45,000',
-    sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL'],
-    image: '/new-arrival-1.jpg',
-  },
-  {
-    id: 5,
-    name: 'Handwoven Silk Skirt',
-    price: '₦32,500',
-    sizes: ['S', 'M', 'L'],
-    image: '/new-arrival-2.jpg',
-  },
-  {
-    id: 6,
-    name: 'Traditional Print Pants',
-    price: '₦28,900',
-    sizes: ['One Size'],
-    image: '/new-arrival-3.jpg',
-  },
-];
+import { newArrivals } from '../data/newArrivals'; 
 
 function NewArrivals() {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [selectedSizes, setSelectedSizes] = useState<{ [key: number]: string }>({});
-  const [emblaRef] = useEmblaCarousel({
-    dragFree: true,
-    loop: false,
-  });
+  const [emblaRef] = useEmblaCarousel({ dragFree: true, loop: false });
 
   return (
     <section className="bg-[#FFFBEB] px-4 sm:px-6 lg:px-8 mb-[61px]">
@@ -70,7 +23,6 @@ function NewArrivals() {
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                {/* Image Container */}
                 <div className="relative aspect-[474/923]">
                   <Image
                     src={item.image}
@@ -79,8 +31,6 @@ function NewArrivals() {
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-
-                  {/* Like Button */}
                   <button
                     className={`absolute top-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur-sm transition-opacity ${
                       hoveredItem === item.id ? 'opacity-100' : 'opacity-0'
@@ -90,11 +40,8 @@ function NewArrivals() {
                   </button>
                 </div>
 
-                {/* Product Info */}
                 <div className="mt-6 absolute bottom-0 left-0 right-0 bg-[#FBF7F3CC]/80 backdrop-blur-sm p-4 transition-transform transform group-hover:translate-y-0 translate-y-full">
                   <h3 className="text-xl font-normal text-[#2C2C2C]">{item.name}</h3>
-
-                  {/* Clickable Sizes */}
                   <div className="flex gap-2 mt-2 flex-wrap">
                     {item.sizes.map((size) => (
                       <button
@@ -117,8 +64,7 @@ function NewArrivals() {
                   </div>
 
                   <p className="text-lg font-medium text-[#2C2C2C] mt-2">{item.price}</p>
-
-                  <button className="mt-4 w-full py-3 border-2 border-[#8D2741] text-[#8D2741] rounded-lg hover:bg-[#8D2741] hover:text-[#FFFBEB] transition-colors duration-300">
+                  <button className="mt-4 py-3 underline font-semibold text-[#2C2C2C] hover:text-[#701d34] transition-colors">
                     Add to Cart
                   </button>
                 </div>
@@ -132,5 +78,3 @@ function NewArrivals() {
 }
 
 export default NewArrivals;
-// This code defines a NewArrivals component that displays a carousel of new arrival products.
-// Each product has an image, name, price, and sizes. The component uses the Embla Carousel library for a 

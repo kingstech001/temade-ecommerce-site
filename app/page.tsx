@@ -1,5 +1,5 @@
-import TopBar from "@/app/components/TopBar";
-import NavBar from "@/app/components/NavBar";
+// import TopBar from "@/app/components/TopBar";
+// import NavBar from "@/app/components/NavBar";
 import Hero from "@/app/components/Hero";
 import CategorySection from "./components/CategoriesSection";
 import GalleryCarousel from "@/app/components/GalleryCarousel";
@@ -11,8 +11,8 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <main>
-      <TopBar />
-      <NavBar />
+      {/* <TopBar /> */}
+      {/* <NavBar /> */}
       <Hero />
       <CategorySection />
       <GalleryCarousel />
