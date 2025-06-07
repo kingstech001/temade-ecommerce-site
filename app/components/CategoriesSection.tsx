@@ -1,10 +1,9 @@
 'use client';
 
-import {
-  motion
-} from 'framer-motion';
+
+import {  motion } from 'framer-motion';
+
 import { useRef } from 'react';
-import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { EB_Garamond } from 'next/font/google';
 import Link from 'next/link';
@@ -17,6 +16,7 @@ const ebGaramond = EB_Garamond({
 
 function CategorySection() {
   const sectionRef = useRef(null);
+
   return (
     <section
       ref={sectionRef}
