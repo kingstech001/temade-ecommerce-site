@@ -17,12 +17,10 @@ import ShopTemadeDropdown from "./ShopTemadeDropdown"; // adjust the path if nee
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+    // You can use this function to filter and render product cards based on selectedCategory
     console.log("Selected category:", category);
-    // You can use this state to filter and render product cards based on selectedCategory
   };
 
   return (
