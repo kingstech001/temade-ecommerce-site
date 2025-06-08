@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { categoryImages, CategoryImage, ColorVariant, ColorImage } from '@/app/data/shopCategories';
+import { categoryImages } from '@/app/data/shopCategories';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
 
@@ -19,18 +19,18 @@ type Props = {
 export default function ProductDetailPage({ params }: Props) {
     const { productId } = use(params);
 
-    const allProducts: CategoryImage[] = Object.entries(categoryImages)
+    const allProducts = Object.entries(categoryImages)
         .filter(([category]) => category !== 'All')
-        .flatMap(([_, items]) => items);
+        .flatMap(([, items]) => items);
 
     const product = allProducts.find((item) => item.id === productId);
     if (!product) notFound();
 
     const category = Object.entries(categoryImages)
         .filter(([cat]) => cat !== 'All')
-        .find(([_, items]) => items.some((item) => item.id === productId))?.[0];
+        .find(([, items]) => items.some((item) => item.id === productId))?.[0];
 
-    const [mainImage, setMainImage] = useState<ColorImage>(
+    const [mainImage, setMainImage] = useState(
         product?.colorVariants?.[0]?.images?.[0] ?? { src: '', alt: '' }
     );
 
@@ -177,7 +177,7 @@ export default function ProductDetailPage({ params }: Props) {
             <div>
                 <h2 className="text-2[32px] font-medium text-[#000000] mt-10 mb-4 text-center">Shop More From This Collection</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {allProducts.slice(0, 6).map((item: any) => (
+                    {allProducts.slice(0, 6).map((item) => (
                         <Link href={`/shop/${item.id}`} key={item.id} className="group">
                             <div key={item.id}>
                                 <Image
