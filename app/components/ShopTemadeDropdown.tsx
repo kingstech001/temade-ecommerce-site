@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";  // import Link
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { categories, categoryImages, CategoryImage } from "../data/shopCategories";
@@ -47,11 +48,11 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
   // Helper: get only one color variant's images per product for the selected category
   const getOneColorImagesForCategory = (category: string) => {
     const items = categoryImages[category] || [];
-    // For each product, pick the first color variant and get its first image only
     return items.map((item: CategoryImage) => {
       const firstColorVariant = item.colorVariants[0];
       const firstImage = firstColorVariant.images[0];
       return {
+        id: item.id, // Add id here for linking
         src: firstImage.src,
         alt: firstImage.alt,
         productName: item.name,
@@ -95,19 +96,21 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
         </div>
 
         <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6">
-          {images.map((img, index) => (
-            <div key={index} className="text-center">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={254}
-                height={282}
-                className="object-cover"
-              />
-              <p className="mt-2 text-[#030C26] text-sm text-left font-normal">
-                {img.productName} - {img.alt}
-              </p>
-            </div>
+          {images.map((img) => (
+            <Link key={img.id} href={`/shop/${img.id}`}>
+              <div className="text-center cursor-pointer block">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={254}
+                  height={282}
+                  className="object-cover rounded-lg"
+                />
+                <p className="mt-2 text-[#030C26] text-sm text-left font-normal">
+                  {img.productName} - {img.alt}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
