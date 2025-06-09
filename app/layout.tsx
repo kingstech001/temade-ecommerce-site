@@ -40,6 +40,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        <head>
+        <title>Temade</title>
+        <link rel="icon" href="/temade-icon.png" /> {/* or .png/.svg */}
+        <meta name="description" content="Company slogan" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${workSans.variable} bg-[#FFFBEB] antialiased`}
       >
