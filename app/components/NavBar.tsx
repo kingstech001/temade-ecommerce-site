@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronDown,
   CircleUser,
@@ -12,25 +12,42 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import ShopTemadeDropdown from "./ShopTemadeDropdown"; // adjust the path if needed
+import ShopTemadeDropdown from "./ShopTemadeDropdown";
+import CartOverlay from "./CartOverlay";
+import { useCart } from "../context/CartContext";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const { cartItems } = useCart();
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     console.log("Selected category:", category);
-    // You can use this state to filter and render product cards based on selectedCategory
   };
+
+  // Disable body scroll when overlay or menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen || isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen, isCartOpen]);
 
   return (
     <>
       {/* Top Nav */}
-      <nav className="sticky top-0 z-30 bg-[#FFFBEB] ">
+      <nav className="sticky top-0 z-30 bg-[#FFFBEB]">
         <div className="max-w-[1280px] m-auto px-8 py-3 flex justify-between items-center">
-          {/* Logo */}
           <Link href="/">
             <Image
               src="/temade-icon.png"
@@ -47,11 +64,7 @@ const NavBar = () => {
             <Link href="/shop">COLLECTIONS</Link>
             <button
               onClick={() => setIsCategoryDropdownOpen(true)}
-              className={`flex items-center gap-1 transition-colors ${
-                isCategoryDropdownOpen
-                  ? "underline text-[#8D2741] font-semibold"
-                  : ""
-              }`}
+              className={`flex items-center gap-1 transition-colors ${isCategoryDropdownOpen ? "underline text-[#8D2741] font-semibold" : ""}`}
             >
               SHOP TEMADE
               <ChevronDown className="w-4 h-4" />
@@ -70,23 +83,28 @@ const NavBar = () => {
             <Link href="/account" className="hover:text-[#8D2741] transition-colors">
               <CircleUser />
             </Link>
-            <Link href="/cart" className="relative hover:text-[#8D2741] transition-colors">
-              <ShoppingCart />
-              <span className="absolute z-10 top-0 text-[14px] left-5 font-bold px-1">
-                [0]
-              </span>
-            </Link>
             <button
-              onClick={() => setIsMobileMenuOpen(true)}
+              onClick={() => setIsCartOpen(true)}
+              className="relative hover:text-[#8D2741] transition-colors"
+            >
+              <ShoppingCart />
+              {totalQuantity > 0 && (
+                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
+                  [{totalQuantity}]
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => !isMobileMenuOpen && setIsMobileMenuOpen(true)}
               className="hidden sm:block lg:hidden text-[#030C26] ml-4"
             >
               <Menu />
             </button>
           </div>
 
-          {/* Hamburger Icon (Mobile Only) */}
+          {/* Hamburger (Mobile) */}
           <button
-            onClick={() => setIsMobileMenuOpen(true)}
+            onClick={() => !isMobileMenuOpen && setIsMobileMenuOpen(true)}
             className="sm:hidden text-[#030C26]"
           >
             <Menu />
@@ -96,9 +114,7 @@ const NavBar = () => {
 
       {/* Mobile Side Menu */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-[#FFFBEB] shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 h-full w-64 bg-[#FFFBEB] shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden`}
       >
         <div className="flex justify-between items-center px-4 py-4 border-b">
           <Image src="/temade-icon.png" alt="Logo" width={36} height={36} />
@@ -123,31 +139,42 @@ const NavBar = () => {
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)}><Search /></Link>
             <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)}><Heart /></Link>
             <Link href="/account" onClick={() => setIsMobileMenuOpen(false)}><CircleUser /></Link>
-            <Link href="/cart" className="relative" onClick={() => setIsMobileMenuOpen(false)}>
+            <button
+              onClick={() => {
+                setIsCartOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              className="relative"
+            >
               <ShoppingCart />
-              <span className="absolute z-10 top-1 left-6 text-[14px] font-bold rounded-full px-1">
-                [0]
-              </span>
-            </Link>
+              {totalQuantity > 0 && (
+                <span className="absolute z-10 top-[1px] left-6 text-[14px] font-bold rounded-full px-1">
+                  [{totalQuantity}]
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Backdrop */}
+      {/* Smooth Backdrop (Mobile menu) */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
+          className="fixed inset-0 z-40 bg-black bg-opacity-30 transition-opacity duration-300"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
-      {/* Category Fullscreen Dropdown */}
+      {/* Category Dropdown */}
       {isCategoryDropdownOpen && (
         <ShopTemadeDropdown
           onClose={() => setIsCategoryDropdownOpen(false)}
           onSelect={handleCategorySelect}
         />
       )}
+
+      {/* Cart Overlay */}
+      {isCartOpen && <CartOverlay onClose={() => setIsCartOpen(false)} />}
     </>
   );
 };

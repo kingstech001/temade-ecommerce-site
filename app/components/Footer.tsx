@@ -9,16 +9,15 @@ export default function Footer() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your subscription logic here
     console.log('Subscribed email:', email);
     setEmail('');
   };
 
   return (
-    <footer className="w-full bg-[#FFD7E1] py-8 px-4 md:px-16 mx-auto max-w-screen-2xl">
-      <div className="flex flex-1 justify-between md:text-left">
-        {/* Column 1 - Logo */}
-        <div className="flex flex-col gap-1 flex-wrap">
+    <footer className="w-full bg-[#FFD7E1] py-10 px-6 md:px-16 mx-auto max-w-screen-2xl">
+      <div className="flex flex-col md:flex-row md:justify-between gap-10 flex-wrap">
+        {/* Logo Section */}
+        <div className="flex flex-col gap-2">
           <Link href="/">
             <Image
               src="/temade-icon.png"
@@ -28,55 +27,44 @@ export default function Footer() {
               className="h-10 w-auto"
             />
           </Link>
-          <p className="font-WorkSans font-medium text-[9px] text-[#5A554C]">
-            2025 ALL RIGHTS RESERVED
+          <p className="text-[#5A554C] text-xs font-medium font-WorkSans">
+            © 2025 ALL RIGHTS RESERVED
           </p>
         </div>
 
-        {/* Column 2 - Links */}
+        {/* Useful Links */}
         <div className="flex flex-col gap-2">
-          <a href="#" className="font-WorkSans font-normal text-[12px] text-[#5A554C] hover:underline transition-all">
-            INSTAGRAM
-          </a>
-          <a href="#" className="font-WorkSans font-normal text-[12px] text-[#5A554C] hover:underline transition-all">
-            CONTACT US
-          </a>
-          <a href="#" className="font-WorkSans font-normal text-[12px] text-[#5A554C] hover:underline transition-all">
-            ABOUT US
-          </a>
+          <p className="text-sm font-semibold text-[#5A554C] font-WorkSans">LINKS</p>
+          <a href="#" className="text-sm text-[#5A554C] hover:underline font-WorkSans">Instagram</a>
+          <a href="#" className="text-sm text-[#5A554C] hover:underline font-WorkSans">Contact Us</a>
+          <a href="#" className="text-sm text-[#5A554C] hover:underline font-WorkSans">About Us</a>
         </div>
 
-        {/* Column 3 - Policies */}
+        {/* Policies */}
         <div className="flex flex-col gap-2">
-          <a href="#" className="font-WorkSans font-normal text-[12px] text-[#5A554C] hover:underline transition-all">
-            SHIPPING POLICY
-          </a>
-          <a href="#" className="font-WorkSans font-normal text-[12px] text-[#5A554C] hover:underline transition-all">
-            TERMS OF SERVICE
-          </a>
-          <a href="#" className="font-WorkSans font-normal text-[12px] text-[#5A554C] hover:underline transition-all">
-            PRIVACY POLICY
-          </a>
+          <p className="text-sm font-semibold text-[#5A554C] font-WorkSans">POLICIES</p>
+          <a href="#" className="text-sm text-[#5A554C] hover:underline font-WorkSans">Shipping Policy</a>
+          <a href="#" className="text-sm text-[#5A554C] hover:underline font-WorkSans">Terms of Service</a>
+          <a href="#" className="text-sm text-[#5A554C] hover:underline font-WorkSans">Privacy Policy</a>
         </div>
 
-        {/* Column 4 - Newsletter */}
-        <div className="col-span-2 md:col-span-1 flex flex-col gap-2">
-          <p className="font-WorkSans font-normal text-[12px] text-[#5A554C]">
+        {/* Newsletter */}
+        <div className="flex flex-col gap-3 w-full sm:w-auto max-w-md">
+          <p className="text-sm font-WorkSans text-[#5A554C] font-medium">
             SUBSCRIBE TO OUR MAILING LIST
           </p>
-          <form onSubmit={handleSubmit} className="flex gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
               placeholder="Your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full md:w-[230px] h-[27px] rounded-[6px] border-[1px] border-[#929292] placeholder-[#5A554C] px-2 text-[12px] focus:outline-none focus:ring-1 focus:ring-[#5A554C]"
-              style={{ fontFamily: 'Work Sans', fontWeight: 400 }}
+              className="flex-1 h-10 rounded-md border border-[#929292] placeholder-[#5A554C] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#5A554C] font-WorkSans py-2"
               required
             />
             <button
               type="submit"
-              className="bg-[#5A554C] text-white text-[12px] px-3 rounded-[6px] hover:bg-opacity-90 transition-colors"
+              className="h-10 px-4 bg-[#5A554C] text-white rounded-md text-sm font-WorkSans hover:bg-opacity-90 transition-colors"
             >
               Subscribe
             </button>

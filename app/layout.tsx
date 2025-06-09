@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono,  } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { EB_Garamond } from 'next/font/google';
 import { Work_Sans } from 'next/font/google';
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import TopBar from "./components/TopBar";
+import { CartProvider } from "./context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const ebGaramond = EB_Garamond({ 
+const ebGaramond = EB_Garamond({
   subsets: ['latin'],
   variable: '--font-garamond'
 });
@@ -40,11 +41,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond} ${workSans.variable} bg-[#FFFBEB] antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${workSans.variable} bg-[#FFFBEB] antialiased`}
       >
-        <TopBar />
-        <NavBar />
-        {children}
+        <CartProvider>
+          <TopBar />
+          <NavBar />
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
