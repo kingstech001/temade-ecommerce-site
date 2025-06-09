@@ -9,9 +9,9 @@ import { categoryImages } from '@/app/data/shopCategories';
 import { Star } from 'lucide-react';
 
 import Link from 'next/link';
-import { Star, CheckCircle2, XCircle } from 'lucide-react';
+import {  CheckCircle2, XCircle } from 'lucide-react';
 
-import { categoryImages, CategoryImage, ColorImage } from '@/app/data/shopCategories';
+
 import { useCart } from '@/app/context/CartContext';
 
 type ParamsType = {
