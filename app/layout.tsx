@@ -17,9 +17,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const ebGaramond = EB_Garamond({
-  subsets: ["latin"],
-  variable: "--font-garamond",
+
+const ebGaramond = EB_Garamond({ 
+  subsets: ['latin'],
+  variable: '--font-garamond'
+
 });
 
 const workSans = Work_Sans({
