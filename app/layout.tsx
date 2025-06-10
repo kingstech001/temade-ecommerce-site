@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { EB_Garamond } from 'next/font/google';
-import { Work_Sans } from 'next/font/google';
+import { EB_Garamond } from "next/font/google";
+import { Work_Sans } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import TopBar from "./components/TopBar";
@@ -17,34 +17,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 const ebGaramond = EB_Garamond({ 
   subsets: ['latin'],
   variable: '--font-garamond'
+
 });
 
 const workSans = Work_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-WorkSans'
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-WorkSans",
 });
 
 export const metadata: Metadata = {
-  title: "Temade E-commerce",
+  title: "Temade",
   description: "See Buy Temade E-commerce",
+  icons: {
+    icon: "/temade-icon.png",
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-        <head>
-        <title>Temade</title>
-        <link rel="icon" href="/temade-icon.png" /> {/* or .png/.svg */}
-        <meta name="description" content="Company slogan" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${workSans.variable} bg-[#FFFBEB] antialiased`}
       >

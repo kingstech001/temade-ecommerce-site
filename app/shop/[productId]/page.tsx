@@ -9,8 +9,8 @@ import { categoryImages } from '@/app/data/shopCategories';
 import { Star } from 'lucide-react';
 
 import Link from 'next/link';
-import {  CheckCircle2, XCircle } from 'lucide-react';
 
+import {  CheckCircle2, XCircle } from 'lucide-react';
 
 import { useCart } from '@/app/context/CartContext';
 
@@ -99,7 +99,7 @@ export default function ProductDetailPage({ params }: Props) {
                 {/* Images */}
                 <div className="flex flex-col lg:flex-row gap-4 w-full lg:w-1/2">
                     {/* Thumbnails */}
-                    <div className="flex w-full gap-3 max-smb:overflow-x-auto lg:flex-col lg:w-1/3 ">
+                    <div className="flex w-full gap-3 max-smb:overflow-x-auto lg:flex-col lg:w-1/3">
                         {product.colorVariants.flatMap((variant) =>
                             variant.images.map((img, idx) => (
                                 <button
