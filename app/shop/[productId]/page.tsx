@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+
+
 import Link from 'next/link';
 import { Star, CheckCircle2, XCircle } from 'lucide-react';
 
@@ -22,18 +24,18 @@ export default function ProductDetailPage({ params }: Props) {
     const { productId } = use(params);
     const { addToCart } = useCart();
 
-    const allProducts: CategoryImage[] = Object.entries(categoryImages)
+    const allProducts = Object.entries(categoryImages)
         .filter(([category]) => category !== 'All')
-        .flatMap(([_, items]) => items);
+        .flatMap(([, items]) => items);
 
     const product = allProducts.find((item) => item.id === productId);
     if (!product) notFound();
 
     const category = Object.entries(categoryImages)
         .filter(([cat]) => cat !== 'All')
-        .find(([_, items]) => items.some((item) => item.id === productId))?.[0];
+        .find(([, items]) => items.some((item) => item.id === productId))?.[0];
 
-    const [mainImage, setMainImage] = useState<ColorImage>(
+    const [mainImage, setMainImage] = useState(
         product?.colorVariants?.[0]?.images?.[0] ?? { src: '', alt: '' }
     );
     const [selectedSize, setSelectedSize] = useState<string>('');

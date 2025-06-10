@@ -20,13 +20,13 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
 
   const { cartItems } = useCart();
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+    // You can use this function to filter and render product cards based on selectedCategory
     console.log("Selected category:", category);
   };
 
