@@ -15,22 +15,30 @@ import Image from "next/image";
 import ShopTemadeDropdown from "./ShopTemadeDropdown";
 import CartOverlay from "./CartOverlay";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-
   const { cartItems } = useCart();
-  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const { wishlist } = useWishlist();
+
+  const totalCartQuantity = (cartItems || []).reduce((sum, item) => sum + item.quantity, 0);
+  const wishlistCount = wishlist?.length || 0;
 
   const handleCategorySelect = (category: string) => {
-    // You can use this function to filter and render product cards based on selectedCategory
     console.log("Selected category:", category);
+    toast.success(`You selected: ${category}`, {
+      style: {
+        background: '#8D2741',
+        color: '#fff',
+      },
+    });
   };
 
-  // Disable body scroll when overlay or menu is open
   useEffect(() => {
     if (isMobileMenuOpen || isCartOpen) {
       document.body.style.overflow = 'hidden';
@@ -45,6 +53,8 @@ const NavBar = () => {
 
   return (
     <>
+      <Toaster position="top-right" />
+
       {/* Top Nav */}
       <nav className="sticky top-0 z-30 bg-[#FFFBEB]">
         <div className="max-w-[1280px] m-auto px-8 py-3 flex justify-between items-center">
@@ -77,23 +87,35 @@ const NavBar = () => {
             <Link href="/search" className="hover:text-[#8D2741] transition-colors">
               <Search />
             </Link>
-            <Link href="/wishlist" className="hover:text-[#8D2741] transition-colors">
+
+            {/* Wishlist Icon */}
+            <Link href="/wishlist" className="relative hover:text-[#8D2741] transition-colors flex">
               <Heart />
+              {wishlistCount > 0 ? (
+                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
+                  [{wishlistCount}]
+                </span>
+              ) : "[0]"}
             </Link>
+
             <Link href="/account" className="hover:text-[#8D2741] transition-colors">
               <CircleUser />
             </Link>
+
+            {/* Cart Icon */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative hover:text-[#8D2741] transition-colors"
+              className="relative hover:text-[#8D2741] transition-colors flex text-[14px]"
             >
               <ShoppingCart />
-              {totalQuantity > 0 && (
+              {totalCartQuantity > 0 ? (
                 <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
-                  [{totalQuantity}]
+                  [{totalCartQuantity}]
                 </span>
-              )}
+              ) : "[0]"}
             </button>
+
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => !isMobileMenuOpen && setIsMobileMenuOpen(true)}
               className="hidden sm:block lg:hidden text-[#030C26] ml-4"
@@ -135,23 +157,33 @@ const NavBar = () => {
             SHOP TEMADE
           </button>
           <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>LOOKBOOK</Link>
+
           <div className="flex sm:hidden w-full space-x-4">
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)}><Search /></Link>
-            <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)}><Heart /></Link>
-            <Link href="/account" onClick={() => setIsMobileMenuOpen(false)}><CircleUser /></Link>
-            <button
-              onClick={() => {
-                setIsCartOpen(true);
-                setIsMobileMenuOpen(false);
-              }}
-              className="relative"
-            >
-              <ShoppingCart />
-              {totalQuantity > 0 && (
-                <span className="absolute z-10 top-[1px] left-6 text-[14px] font-bold rounded-full px-1">
-                  [{totalQuantity}]
+
+            {/* Mobile Wishlist Icon */}
+            <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="relative">
+              <Heart />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-2 text-xs font-bold px-1">
+                  [{wishlistCount}]
                 </span>
               )}
+            </Link>
+
+            <Link href="/account" onClick={() => setIsMobileMenuOpen(false)}><CircleUser /></Link>
+
+            {/* Mobile Cart Icon */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative hover:text-[#8D2741] transition-colors flex text-[14px]"
+            >
+              <ShoppingCart />
+              {totalCartQuantity > 0 ? (
+                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
+                  [{totalCartQuantity}]
+                </span>
+              ) : "[0]"}
             </button>
           </div>
         </div>

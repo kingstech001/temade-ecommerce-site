@@ -6,6 +6,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import TopBar from "./components/TopBar";
 import { CartProvider } from "./context/CartContext";
+import { WishlistProvider } from "./context/WishlistContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,11 +49,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${workSans.variable} bg-[#FFFBEB] antialiased`}
       >
-        <CartProvider>
-          <TopBar />
-          <NavBar />
-          {children}
-        </CartProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <TopBar />
+            <NavBar />
+            {children}
+          </CartProvider>
+        </WishlistProvider>
       </body>
     </html>
   );
