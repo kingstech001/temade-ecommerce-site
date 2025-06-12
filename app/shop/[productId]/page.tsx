@@ -82,11 +82,11 @@ export default function ProductDetailPage({ params }: Props) {
                 <ul className="flex flex-wrap gap-1">
                     <li><Link href="/" className="text-pink-600 hover:underline">Home</Link></li>
                     <li>/</li>
-                    <li><Link href="/categories" className="text-pink-600 hover:underline">Categories</Link></li>
+                    <li><Link href="/shop" className="text-pink-600 hover:underline">Categories</Link></li>
                     {category && (
                         <>
                             <li>/</li>
-                            <li><Link href={`/categories/${category}`} className="text-pink-600 hover:underline">{category}</Link></li>
+                            <li><Link href={`/shop/`} className="text-pink-600 hover:underline">{category}</Link></li>
                         </>
                     )}
                     <li>/</li>

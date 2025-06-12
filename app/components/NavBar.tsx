@@ -158,17 +158,17 @@ const NavBar = () => {
           </button>
           <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>LOOKBOOK</Link>
 
-          <div className="flex sm:hidden w-full space-x-4">
+          <div className="flex sm:hidden w-full space-x-5">
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)}><Search /></Link>
 
             {/* Mobile Wishlist Icon */}
-            <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="relative">
+            <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="relative flex">
               <Heart />
-              {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-2 text-xs font-bold px-1">
+              {wishlistCount > 0 ? (
+                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
                   [{wishlistCount}]
                 </span>
-              )}
+              ) : "[0]"}
             </Link>
 
             <Link href="/account" onClick={() => setIsMobileMenuOpen(false)}><CircleUser /></Link>
