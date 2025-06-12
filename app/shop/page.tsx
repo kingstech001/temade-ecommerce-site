@@ -12,9 +12,9 @@ function Shop() {
     <div className="max-w-[1280px] m-auto px-8 py-4">
       {/* Breadcrumb */}
       <div className="font-WorkSans flex space-x-1">
-        <h2 className="text-[16px] font-normal text-[#CA6F86]">Home</h2>
+       <Link href="/" className="text-[16px] font-normal text-[#CA6F86]">Home</Link>
         <h2>/</h2>
-        <h2 className="text-[16px] font-normal text-[#838383]">Categories</h2>
+        <h2 className="text-[16px] font-normal text-[#838383]">Shop</h2>
       </div>
 
       {/* Header with dropdown */}
