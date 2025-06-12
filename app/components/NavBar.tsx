@@ -158,11 +158,11 @@ const NavBar = () => {
           </button>
           <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>LOOKBOOK</Link>
 
-          <div className="flex sm:hidden w-full space-x-4">
+          <div className="flex sm:hidden w-full space-x-5">
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)}><Search /></Link>
 
             {/* Mobile Wishlist Icon */}
-            <Link href="/wishlist" className="relative hover:text-[#8D2741] transition-colors flex">
+            <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="relative flex">
               <Heart />
               {wishlistCount > 0 ? (
                 <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
