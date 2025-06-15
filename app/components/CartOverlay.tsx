@@ -106,12 +106,14 @@ export default function CartOverlay({ onClose }: CartOverlayProps) {
                         <span>Total</span>
                         <span>₦{getTotal().toLocaleString()}</span>
                     </div>
-                    <button
-                        className="w-full bg-[#222222] text-white py-2 rounded-md hover:bg-[#111] transition-colors disabled:opacity-60"
-                        disabled={cartItems.length === 0}
-                    >
-                        GO TO CHECKOUT
-                    </button>
+                    <Link href="/checkout">
+                        <button
+                            className="w-full bg-[#222222] text-white py-2 rounded-md hover:bg-[#111] transition-colors disabled:opacity-60"
+                            disabled={cartItems.length === 0}
+                        >
+                            GO TO CHECKOUT
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>
