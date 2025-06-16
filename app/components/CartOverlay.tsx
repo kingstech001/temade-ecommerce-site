@@ -110,6 +110,7 @@ export default function CartOverlay({ onClose }: CartOverlayProps) {
                         <button
                             className="w-full bg-[#222222] text-white py-2 rounded-md hover:bg-[#111] transition-colors disabled:opacity-60"
                             disabled={cartItems.length === 0}
+                            onClick={onClose}
                         >
                             GO TO CHECKOUT
                         </button>

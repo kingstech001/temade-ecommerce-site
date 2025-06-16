@@ -97,7 +97,7 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
 
         <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6">
           {images.map((img) => (
-            <Link key={img.id} href={`/shop/${img.id}`}>
+            <Link key={img.id} href={`/shop/${img.id}`} onClick={handleClose}>
               <div className="text-center cursor-pointer block">
                 <Image
                   src={img.src}
