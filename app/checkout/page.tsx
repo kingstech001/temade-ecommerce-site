@@ -1,51 +1,119 @@
-'use client';
+"use client"
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useCart } from '../context/CartContext';
+import type React from "react"
+
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
+import { useCart } from "../context/CartContext"
+import { useAuth } from "../context/AuthContext"
+import { useRouter } from "next/navigation"
 
 export default function CheckoutPage() {
-  const { cartItems, getTotal } = useCart();
-  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = getTotal();
-  const tax = subtotal * 0.1;
-  const shipping = 1000;
-  const total = subtotal + tax + shipping;
+  const { cartItems, getTotal } = useCart()
+  const { user } = useAuth()
+  const router = useRouter()
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  const subtotal = getTotal()
+  const tax = subtotal * 0.1
+  const shipping = 1000
+  const total = subtotal + tax + shipping
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    city: '',
-    state: '',
-    phone: '',
-  });
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    city: "",
+    state: "",
+    phone: user?.phone || "",
+  })
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [isProcessing, setIsProcessing] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (cartItems.length === 0) return;
-    console.log('Order Placed:', formData, cartItems);
-    alert('Order placed successfully!');
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (cartItems.length === 0) return
+
+    setIsProcessing(true)
+
+    try {
+      if (user?._id) {
+        // Create order in database
+        const response = await fetch("/api/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user._id,
+            items: cartItems,
+            shippingAddress: formData,
+            paymentMethod: "card", // You can make this dynamic
+            subtotal,
+            tax,
+            shipping,
+            total,
+          }),
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          alert("Order placed successfully!")
+          router.push("/account")
+        } else {
+          throw new Error("Failed to create order")
+        }
+      } else {
+        // Guest checkout - just show success message
+        console.log("Guest Order:", formData, cartItems)
+        alert("Order placed successfully!")
+      }
+    } catch (error) {
+      console.error("Order error:", error)
+      alert("Failed to place order. Please try again.")
+    }
+
+    setIsProcessing(false)
+  }
 
   return (
     <div className="min-h-screen bg-[#FFFBEB] py-10 px-4 md:px-16">
       <nav className="text-sm sm:text-base text-gray-600 mb-6">
         <ul className="flex flex-wrap gap-1">
-          <li><Link href="/" className="text-pink-600 hover:underline">Home</Link></li>
+          <li>
+            <Link href="/" className="text-pink-600 hover:underline">
+              Home
+            </Link>
+          </li>
           <li>/</li>
-          <li><Link href={``} className="text-pink-600 hover:underline">cart</Link></li>
+          <li>
+            <Link href={``} className="text-pink-600 hover:underline">
+              cart
+            </Link>
+          </li>
           <li>/</li>
           <li className="text-gray-500">Checkout</li>
         </ul>
       </nav>
+
+      {!user && (
+        <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+          <p className="text-blue-800">
+            <Link href="/auth/login" className="underline font-medium">
+              Sign in
+            </Link>{" "}
+            or{" "}
+            <Link href="/auth/register" className="underline font-medium">
+              create an account
+            </Link>{" "}
+            to save your order history and track your purchases.
+          </p>
+        </div>
+      )}
 
       {cartItems.length === 0 ? (
         <div className="text-center text-gray-600">
@@ -59,7 +127,7 @@ export default function CheckoutPage() {
           {/* Left column: Order summary + form */}
           <div className="order-2 lg:order-1">
             <div className="bg-[#F2E5E8] p-6 rounded-[5px] shadow-sm mb-4">
-              <div className='flex items-center gap-2 mb-4'>
+              <div className="flex items-center gap-2 mb-4">
                 <h2 className="text-xl font-semibold text-[#222222]">Order Summary</h2>
                 {totalQuantity > -1 && (
                   <span className="text-sm md:text-base font-semibold px-3 py-1 bg-[#CA6F86] rounded-full text-white ml-2">
@@ -72,7 +140,7 @@ export default function CheckoutPage() {
                   <div key={item.id} className="flex items-start gap-4">
                     <div className="flex items-start gap-4 flex-1">
                       <Image
-                        src={item.image}
+                        src={item.image || "/placeholder.svg"}
                         alt={item.name}
                         width={80}
                         height={80}
@@ -214,14 +282,7 @@ export default function CheckoutPage() {
               <h2 className="text-[15px] font-semibold text-[#222222]">Pay With</h2>
               <div className="space-y-2 border-y py-5">
                 <label htmlFor="card" className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    id="card"
-                    name="paymentMethod"
-                    value="card"
-                    className="hidden peer"
-                    required
-                  />
+                  <input type="radio" id="card" name="paymentMethod" value="card" className="hidden peer" required />
                   <div className="w-5 h-5 rounded-full border border-[#D0D5DD] peer-checked:border-[#F56630] flex items-center justify-center peer-checked:bg-[#F56630] transition-all duration-200">
                     <div className="w-[18px] h-[18px] rounded-full peer-checked:bg-[#F56630] peer-checked:block border-2 border-white"></div>
                   </div>
@@ -229,13 +290,7 @@ export default function CheckoutPage() {
                 </label>
 
                 <label htmlFor="paypal" className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    id="paypal"
-                    name="paymentMethod"
-                    value="paypal"
-                    className="hidden peer"
-                  />
+                  <input type="radio" id="paypal" name="paymentMethod" value="paypal" className="hidden peer" />
                   <div className="w-5 h-5 rounded-full border border-[#D0D5DD] peer-checked:border-[#F56630] flex items-center justify-center peer-checked:bg-[#F56630] transition-all duration-200">
                     <div className="w-[18px] h-[18px] rounded-full peer-checked:bg-[#F56630] peer-checked:block border-2 border-white"></div>
                   </div>
@@ -332,13 +387,14 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              className="w-full bg-[#222222] text-white py-3 rounded-md hover:bg-[#111]"
+              disabled={isProcessing}
+              className="w-full bg-[#222222] text-white py-3 rounded-md hover:bg-[#111] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Pay <span>₦{total.toLocaleString()}</span>
+              {isProcessing ? "Processing..." : `Pay ₦${total.toLocaleString()}`}
             </button>
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }

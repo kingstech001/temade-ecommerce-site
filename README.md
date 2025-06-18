@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Temade E-commerce Platform
+
+A modern e-commerce platform built with Next.js 15, TypeScript, MongoDB, and Tailwind CSS.
+
+## Features
+
+- 🛍️ Complete e-commerce functionality
+- 👤 User authentication and profiles
+- 🛒 Shopping cart with persistent storage
+- ❤️ Wishlist functionality
+- 📦 Order management and history
+- 💾 MongoDB integration with local storage fallback
+- 📱 Responsive design
+- 🎨 Modern UI with Tailwind CSS
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Database**: MongoDB
+- **Styling**: Tailwind CSS
+- **State Management**: React Context
+- **Package Manager**: pnpm
+- **UI Components**: Custom components with Lucide icons
+- **Animations**: Framer Motion
+- **Carousel**: Embla Carousel
+- **Notifications**: React Hot Toast
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+- Node.js 18.17.0 or higher
+- pnpm 8.0.0 or higher
+- MongoDB Atlas account (or local MongoDB instance)
+
+### Installation
+
+1. Clone the repository:
+\`\`\`bash
+git clone <repository-url>
+cd temade-ecommerce
+\`\`\`
+
+2. Install dependencies:
+\`\`\`bash
+pnpm install
+\`\`\`
+
+3. Set up environment variables:
+\`\`\`bash
+cp .env.example .env.local
+\`\`\`
+
+4. Add your MongoDB connection string to `.env.local`:
+\`\`\`env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/temade_ecommerce?retryWrites=true&w=majority
+\`\`\`
+
+5. Run the development server:
+\`\`\`bash
 pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Dependencies Explained
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Core Dependencies
+- **next**: React framework with App Router
+- **react** & **react-dom**: React library
+- **typescript**: Type safety
+- **mongodb**: Database driver
 
-## Learn More
+### UI & Styling
+- **tailwindcss**: Utility-first CSS framework
+- **tailwind-scrollbar-hide**: Hide scrollbars utility
+- **lucide-react**: Icon library
+- **framer-motion**: Animation library
 
-To learn more about Next.js, take a look at the following resources:
+### Features
+- **embla-carousel-react** & **embla-carousel-autoplay**: Image carousels
+- **react-hot-toast**: Toast notifications
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Development
+- **eslint** & **eslint-config-next**: Code linting
+- **@types/**: TypeScript type definitions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+\`\`\`
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── auth/          # Authentication endpoints
+│   │   ├── user/          # User data management
+│   │   └── orders/        # Order processing
+│   ├── auth/              # Authentication pages
+│   ├── components/        # React components
+│   ├── context/           # React Context providers
+│   ├── data/              # Static data and types
+│   └── shop/              # Shop pages
+├── lib/                   # Utility libraries
+│   ├── models/            # TypeScript interfaces
+│   ├── services/          # Database services
+│   └── mongodb.ts         # Database connection
+└── public/                # Static assets
+\`\`\`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Available Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm type-check` - Run TypeScript type checking
+
+## Environment Variables
+
+Required environment variables:
+- `MONGODB_URI` - MongoDB connection string
+
+## License
+
+This project is licensed under the MIT License.

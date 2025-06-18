@@ -1,85 +1,100 @@
-'use client';
+"use client"
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import type React from "react"
+
+import { createContext, useContext, useEffect, useState } from "react"
+import { useAuth } from "./AuthContext"
 
 type CartItem = {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-  size: string;
-  color: string;
-};
+  id: string
+  name: string
+  image: string
+  price: number
+  quantity: number
+  size: string
+  color: string
+}
 
 type CartContextType = {
-  cartItems: CartItem[];
-  addToCart: (item: CartItem) => void;
-  removeItem: (id: string) => void;
-  increaseQty: (id: string) => void;
-  decreaseQty: (id: string) => void;
-  getTotal: () => number;
-};
+  cartItems: CartItem[]
+  addToCart: (item: CartItem) => void
+  removeItem: (id: string) => void
+  increaseQty: (id: string) => void
+  decreaseQty: (id: string) => void
+  getTotal: () => number
+}
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const { user } = useAuth()
 
   // Load from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem('cart');
+    const stored = localStorage.getItem("cart")
     if (stored) {
-      setCartItems(JSON.parse(stored));
+      setCartItems(JSON.parse(stored))
     }
-  }, []);
+  }, [])
 
-  // Save to localStorage whenever cartItems change
+  // Save to localStorage and sync with database
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    localStorage.setItem("cart", JSON.stringify(cartItems))
+
+    // Sync with database if user is logged in
+    if (user && user._id) {
+      syncCartWithDatabase()
+    }
+  }, [cartItems, user])
+
+  const syncCartWithDatabase = async () => {
+    if (!user?._id) return
+
+    try {
+      await fetch("/api/user/cart", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          cart: cartItems,
+        }),
+      })
+    } catch (error) {
+      console.error("Failed to sync cart with database:", error)
+    }
+  }
 
   const addToCart = (item: CartItem) => {
     setCartItems((prev) => {
-      const existing = prev.find(
-        (i) => i.id === item.id && i.size === item.size
-      );
+      const existing = prev.find((i) => i.id === item.id && i.size === item.size)
       if (existing) {
         return prev.map((i) =>
-          i.id === item.id && i.size === item.size
-            ? { ...i, quantity: i.quantity + item.quantity }
-            : i
-        );
+          i.id === item.id && i.size === item.size ? { ...i, quantity: i.quantity + item.quantity } : i,
+        )
       } else {
-        return [...prev, item];
+        return [...prev, item]
       }
-    });
-  };
+    })
+  }
 
   const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+    setCartItems((prev) => prev.filter((item) => item.id !== id))
+  }
 
   const increaseQty = (id: string) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
+    setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)))
+  }
 
   const decreaseQty = (id: string) => {
     setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
+      prev.map((item) => (item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item)),
+    )
+  }
 
-  const getTotal = () =>
-    cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const getTotal = () => cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
 
   return (
     <CartContext.Provider
@@ -94,11 +109,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </CartContext.Provider>
-  );
-};
+  )
+}
 
 export const useCart = (): CartContextType => {
-  const context = useContext(CartContext);
-  if (!context) throw new Error('useCart must be used within CartProvider');
-  return context;
-};
+  const context = useContext(CartContext)
+  if (!context) throw new Error("useCart must be used within CartProvider")
+  return context
+}
