@@ -62,7 +62,7 @@ export default function CheckoutPage() {
 
         if (response.ok) {
           const data = await response.json()
-          alert("Order placed successfully!")
+          console.log("Order ID:", data.orderId)
           router.push("/account")
         } else {
           throw new Error("Failed to create order")
