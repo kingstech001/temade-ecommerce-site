@@ -23,6 +23,7 @@ export default function CheckoutPage() {
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
     email: user?.email || "",
+    address: user?.address || "",
     city: "",
     state: "",
     phone: user?.phone || "",
@@ -166,7 +167,7 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-[#333] mb-1">
-                    First Name
+                    Enter First Name
                   </label>
                   <input
                     type="text"
@@ -181,7 +182,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium text-[#333] mb-1">
-                    Last Name
+                    Enter Last Name
                   </label>
                   <input
                     type="text"
@@ -198,7 +199,7 @@ export default function CheckoutPage() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-[#333] mb-1">
-                  Email Address
+                  Enter full address
                 </label>
                 <input
                   type="email"
@@ -256,20 +257,37 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-[#333] mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="Enter your phone number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full border rounded-md p-3 outline-[#CA6F86] bg-transparent"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-[#333] mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-full border rounded-md p-3 outline-[#CA6F86] bg-transparent"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-[#333] mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full border rounded-md p-3 outline-[#CA6F86] bg-transparent"
+                  />
+                </div>
               </div>
             </form>
           </div>
