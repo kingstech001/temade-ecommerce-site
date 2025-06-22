@@ -136,7 +136,7 @@ export default function CheckoutPage() {
                   </span>
                 )}
               </div>
-              <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+              <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 ">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex items-start gap-4">
                     <div className="flex items-start gap-4 flex-1">
@@ -167,7 +167,7 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-[#333] mb-1">
-                    Enter First Name
+                    First Name
                   </label>
                   <input
                     type="text"
@@ -182,7 +182,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium text-[#333] mb-1">
-                    Enter Last Name
+                   Last Name
                   </label>
                   <input
                     type="text"
@@ -199,13 +199,13 @@ export default function CheckoutPage() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-[#333] mb-1">
-                  Enter full address
+                  Address
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email"
+                  type="address"
+                  id="address"
+                  name="address"
+                  placeholder="Enter full address"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -224,7 +224,7 @@ export default function CheckoutPage() {
                     value={formData.state}
                     onChange={handleChange}
                     required
-                    className="w-full border rounded-md p-3 outline-[#CA6F86] bg-transparent"
+                    className="w-full border rounded-md p-3  bg-transparent"
                   >
                     <option value="">Select a state</option>
                     <option value="Lagos">Lagos</option>
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                     value={formData.city}
                     onChange={handleChange}
                     required
-                    className="w-full border rounded-md p-3 outline-[#CA6F86] bg-transparent"
+                    className="w-full border rounded-md p-3 bg-transparent"
                   >
                     <option value="">Select a city</option>
                     <option value="Ikeja">Ikeja</option>
