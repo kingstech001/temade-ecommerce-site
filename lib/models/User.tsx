@@ -53,6 +53,7 @@ export interface Order {
     phone: string
     city: string
     state: string
+    address: string
   }
   paymentMethod: string
   paymentStatus: "pending" | "completed" | "failed"
