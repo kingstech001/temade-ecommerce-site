@@ -16,7 +16,7 @@ import ShopTemadeDropdown from "./ShopTemadeDropdown";
 import CartOverlay from "./CartOverlay";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,12 +31,7 @@ const NavBar = () => {
 
   const handleCategorySelect = (category: string) => {
     console.log("Selected category:", category);
-    toast.success(`You selected: ${category}`, {
-      style: {
-        background: '#8D2741',
-        color: '#fff',
-      },
-    });
+  
   };
 
   useEffect(() => {
@@ -53,8 +48,6 @@ const NavBar = () => {
 
   return (
     <>
-      <Toaster position="top-right" />
-
       {/* Top Nav */}
       <nav className="sticky top-0 z-30 bg-[#FFFBEB]">
         <div className="max-w-[1280px] m-auto px-8 py-3 flex justify-between items-center">
