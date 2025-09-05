@@ -49,7 +49,7 @@ const NavBar = () => {
   return (
     <>
       {/* Top Nav */}
-      <nav className="sticky top-0 z-30 bg-[#FFFBEB] font-WorkSans">
+      <nav className="sticky top-0 z-30 bg-[#FFFBEB] font-WorkSans text-[14px]">
         <div className="max-w-[1280px] m-auto px-8 py-3 flex justify-between items-center">
           <Link href="/">
             <Image
