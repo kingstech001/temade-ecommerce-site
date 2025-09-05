@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState, useCallback } from "react"
 import { useAuth } from "./AuthContext"
 
 type CartItem = {
@@ -38,17 +38,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [])
 
-  // Save to localStorage and sync with database
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems))
-
-    // Sync with database if user is logged in
-    if (user && user._id) {
-      syncCartWithDatabase()
-    }
-  }, [cartItems, user])
-
-  const syncCartWithDatabase = async () => {
+  const syncCartWithDatabase = useCallback(async () => {
     if (!user?._id) return
 
     try {
@@ -65,7 +55,17 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (error) {
       console.error("Failed to sync cart with database:", error)
     }
-  }
+  }, [user, cartItems])
+
+  // Save to localStorage and sync with database
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems))
+
+    // Sync with database if user is logged in
+    if (user && user._id) {
+      syncCartWithDatabase()
+    }
+  }, [cartItems, user, syncCartWithDatabase])
 
   const addToCart = (item: CartItem) => {
     setCartItems((prev) => {

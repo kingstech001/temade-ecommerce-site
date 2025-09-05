@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react"
 import { useAuth } from "./AuthContext"
 
 type WishlistItem = {
@@ -30,17 +30,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [])
 
-  // Save wishlist to localStorage and sync with database
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist))
-
-    // Sync with database if user is logged in
-    if (user && user._id) {
-      syncWishlistWithDatabase()
-    }
-  }, [wishlist, user])
-
-  const syncWishlistWithDatabase = async () => {
+  const syncWishlistWithDatabase = useCallback(async () => {
     if (!user?._id) return
 
     try {
@@ -57,7 +47,17 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Failed to sync wishlist with database:", error)
     }
-  }
+  }, [user, wishlist])
+
+  // Save wishlist to localStorage and sync with database
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist))
+
+    // Sync with database if user is logged in
+    if (user && user._id) {
+      syncWishlistWithDatabase()
+    }
+  }, [wishlist, user, syncWishlistWithDatabase])
 
   const addToWishlist = (item: WishlistItem) => {
     setWishlist((prev) => {

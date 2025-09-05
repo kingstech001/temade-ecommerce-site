@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/app/context/AuthContext"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import type { Order } from "@/lib/models/User"
 import { LogOut, ShoppingCart, Heart } from "lucide-react"
@@ -19,13 +19,7 @@ export default function AccountPage() {
     }
   }, [user, isLoading, router])
 
-  useEffect(() => {
-    if (user?._id) {
-      fetchOrders()
-    }
-  }, [user])
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     if (!user?._id) return
     setLoadingOrders(true)
     try {
@@ -38,7 +32,13 @@ export default function AccountPage() {
       console.error("Failed to fetch orders:", error)
     }
     setLoadingOrders(false)
-  }
+  }, [user?._id])
+
+  useEffect(() => {
+    if (user?._id) {
+      fetchOrders()
+    }
+  }, [user?._id, fetchOrders])
 
   const handleLogout = () => {
     logout()

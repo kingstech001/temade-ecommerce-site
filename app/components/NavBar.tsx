@@ -15,7 +15,7 @@ import Image from "next/image";
 import ShopTemadeDropdown from "./ShopTemadeDropdown";
 import CartOverlay from "./CartOverlay";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext";
+// import { useWishlist } from "../context/WishlistContext";
 // import toast, { Toaster } from "react-hot-toast";
 
 const NavBar = () => {
@@ -24,10 +24,8 @@ const NavBar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const { cartItems } = useCart();
-  const { wishlist } = useWishlist();
 
   const totalCartQuantity = (cartItems || []).reduce((sum, item) => sum + item.quantity, 0);
-  const wishlistCount = wishlist?.length || 0;
 
   const handleCategorySelect = (category: string) => {
     console.log("Selected category:", category);
@@ -49,7 +47,7 @@ const NavBar = () => {
   return (
     <>
       {/* Top Nav */}
-      <nav className="sticky top-0 z-30 bg-[#FFFBEB] font-WorkSans  text-[14px] font-semibold leading-[100%] tracking-[0]">
+      <nav className="sticky top-0 z-30 bg-[#FFFBEB] font-WorkSans  text-[14px] font-medium leading-[100%] tracking-[0]">
         <div className="max-w-[1280px] m-auto px-8 py-3 flex justify-between items-center">
           <Link href="/">
             <Image
