@@ -109,8 +109,8 @@ function NewArrivals() {
   }
 
   return (
-    <section className="bg-[#FFFBEB] px-4 sm:px-6 lg:px-8 mb-[61px] relative">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-[#FFFBEB] mb-[61px] relative">
+      <div className="w-full">
         <div
           ref={emblaRef}
           className="overflow-hidden cursor-grab active:cursor-grabbing"
@@ -126,7 +126,7 @@ function NewArrivals() {
                 onMouseLeave={() => setHoveredItem(null)}
                 role="listitem"
               >
-                <div className="relative aspect-[474/923]">
+                <div className="relative aspect-[2/3]">
                   <Image
                     src={item.image}
                     alt={item.name}
