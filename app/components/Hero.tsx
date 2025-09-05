@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { EB_Garamond } from 'next/font/google';
 import { Work_Sans } from 'next/font/google';
+import Link from 'next/link';
 
 const ebGaramond = EB_Garamond({
   subsets: ['latin'],
@@ -46,18 +47,20 @@ const Hero = () => {
           <p className={`${workSans.className} text-[15px] drop-shadow-md font-normal`}>
             Discover premium fashion made with love and heritage. Feel the vibe, wear the pride.
           </p>
-          <motion.button
-            style={{ y: buttonY, opacity }}
-            className="flex items-center gap-2 text-[10px] sm:text-[18px]  md:text-xl hover:bg-[#8D2741] hover:border-[#8D2741] px-8 py-4 rounded-[5px] border-[2px] transition drop-shadow-lg"
-          >
-            SHOP THE NEW COLLECTION
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          <Link href="/shop">
+            <motion.button
+              style={{ y: buttonY, opacity }}
+              className="flex items-center gap-2 text-[10px] sm:text-[18px]  md:text-xl hover:bg-[#8D2741] hover:border-[#8D2741] px-8 py-4 rounded-[5px] border-[2px] transition drop-shadow-lg"
             >
-              <ArrowRight className="w-5 h-5" />
-            </motion.div>
-          </motion.button>
+              SHOP THE NEW COLLECTION
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <ArrowRight className="w-5 h-5" />
+              </motion.div>
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

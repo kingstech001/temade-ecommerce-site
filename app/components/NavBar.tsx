@@ -49,7 +49,7 @@ const NavBar = () => {
   return (
     <>
       {/* Top Nav */}
-      <nav className="sticky top-0 z-30 bg-[#FFFBEB]">
+      <nav className="sticky top-0 z-30 bg-[#FFFBEB] font-WorkSans">
         <div className="max-w-[1280px] m-auto px-8 py-3 flex justify-between items-center">
           <Link href="/">
             <Image
@@ -84,11 +84,6 @@ const NavBar = () => {
             {/* Wishlist Icon */}
             <Link href="/wishlist" className="relative hover:text-[#8D2741] transition-colors flex">
               <Heart />
-              {wishlistCount > 0 ? (
-                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
-                  [{wishlistCount}]
-                </span>
-              ) : "[0]"}
             </Link>
 
             <Link href="/account" className="hover:text-[#8D2741] transition-colors">
@@ -157,11 +152,6 @@ const NavBar = () => {
             {/* Mobile Wishlist Icon */}
             <Link href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="relative flex">
               <Heart />
-              {wishlistCount > 0 ? (
-                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
-                  [{wishlistCount}]
-                </span>
-              ) : "[0]"}
             </Link>
 
             <Link href="/account" onClick={() => setIsMobileMenuOpen(false)}><CircleUser /></Link>

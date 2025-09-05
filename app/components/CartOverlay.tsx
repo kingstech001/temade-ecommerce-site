@@ -3,6 +3,7 @@
 import { X, Plus, Minus, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type CartOverlayProps = {
     onClose: () => void;
@@ -52,11 +53,16 @@ export default function CartOverlay({ onClose }: CartOverlayProps) {
                                 key={item.id}
                                 className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 p-4 rounded-lg "
                             >
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="w-full sm:w-[150px] h-[300px] sm:h-[150px] object-cover rounded-md"
-                                />
+                                <div className="relative w-full sm:w-[150px] h-[300px] sm:h-[150px]">
+                                    <Image
+                                        src={item.image}
+                                        alt={item.name}
+                                        fill
+                                        className="object-cover rounded-md"
+                                        sizes="(max-width: 640px) 100vw, 150px"
+                                        priority={false}
+                                      />
+                                </div>
                                 <div className="flex flex-col justify-between w-full space-y-2">
                                     <div className="space-y-1">
                                         <div className='flex items-center justify-between'>
