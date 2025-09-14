@@ -3,7 +3,13 @@
 
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { Work_Sans } from 'next/font/google';
 
+
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+});
 
 export default function HeroBanner() {
   return (
@@ -29,7 +35,7 @@ export default function HeroBanner() {
             </div>
 
             <Link href="/shop">
-              <button className="mt-8 flex items-center gap-2 border-[2px] border-white px-8 py-3 text-white transition-opacity hover:opacity-80 rounded-[5px] m-auto">
+              <button className={`${workSans.className} mt-8 flex items-center gap-2 border-[2px] border-white px-8 py-3 text-white transition-opacity hover:opacity-80 rounded-[5px] m-auto`}>
                 <span className="text-lg">SHOP TEMADE</span>
                 <ArrowRight className="h-5 w-5" />
               </button>

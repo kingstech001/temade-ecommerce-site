@@ -45,12 +45,12 @@ const Hero = () => {
             THE NEW COLLECTION IS HERE
           </h1>
           <p className={`${workSans.className} text-[15px] drop-shadow-md font-normal`}>
-            Discover premium fashion made with love and heritage. Feel the vibe, wear the pride.
+            Discover our latest drop; designed to move with you, made to last. 
           </p>
           <Link href="/shop">
             <motion.button
               style={{ y: buttonY, opacity }}
-              className="flex items-center gap-2 text-[10px] sm:text-[18px]  md:text-xl hover:bg-[#8D2741] hover:border-[#8D2741] px-8 py-4 rounded-[5px] border-[2px] transition drop-shadow-lg"
+              className={`${workSans.className} flex items-center gap-2 text-[10px] sm:text-[18px]  md:text-xl hover:bg-[#8D2741] hover:border-[#8D2741] px-8 py-4 rounded-[5px] border-[2px] transition drop-shadow-lg`} 
             >
               SHOP THE NEW COLLECTION
               <motion.div

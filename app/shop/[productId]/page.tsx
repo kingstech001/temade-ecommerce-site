@@ -13,6 +13,12 @@ import Link from 'next/link';
 import {  CheckCircle2, XCircle } from 'lucide-react';
 
 import { useCart } from '@/app/context/CartContext';
+import { Work_Sans } from 'next/font/google';
+
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+});
 
 type ParamsType = {
     productId: string;
@@ -76,7 +82,7 @@ export default function ProductDetailPage({ params }: Props) {
     }, [notification]);
 
     return (
-        <div className="px-4 py-8 max-w-7xl mx-auto relative font-sans">
+        <div className={`px-4 py-8 max-w-7xl mx-auto relative ${workSans.className}`}>
             {/* Breadcrumb */}
             <nav className="text-sm sm:text-base text-gray-600 mb-6">
                 <ul className="flex flex-wrap gap-1">
@@ -203,13 +209,14 @@ export default function ProductDetailPage({ params }: Props) {
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                     {allProducts.slice(0, 6).map((item) => (
                         <Link href={`/shop/${item.id}`} key={item.id} className="group">
-                            <Image
-                                src={item.colorVariants[0].images[0].src}
-                                alt={item.name}
-                                width={300}
-                                height={400}
-                                className="rounded-md w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
+                            <div className="relative w-full h-[280px] rounded-md overflow-hidden">
+                                <Image
+                                    src={item.colorVariants[0].images[0].src}
+                                    alt={item.name}
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </div>
                             <p className="mt-2 text-sm font-medium text-center">{item.name}</p>
                         </Link>
                     ))}

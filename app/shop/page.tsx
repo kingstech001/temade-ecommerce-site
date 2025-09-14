@@ -5,9 +5,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { categoryImages } from '../data/shopCategories'; // adjust path if needed
+import { useEffect } from 'react';
 import type { CategoryImage } from '../data/shopCategories';
 
 function Shop() {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
   return (
     <div className="max-w-[1280px] m-auto px-8 py-4">
       {/* Breadcrumb */}
@@ -31,7 +41,7 @@ function Shop() {
         {Object.entries(categoryImages)
           .filter(([category]) => category !== 'All')
           .map(([category, items]) => (
-            <div key={category}>
+            <div key={category} id={category.toLowerCase()}>
               <h2 className="text-[#000000] font-normal text-[24px] mb-4">{category}</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
                 {items.map((item: CategoryImage) => {
@@ -43,13 +53,14 @@ function Shop() {
                   return (
                     <Link key={item.id} href={`/shop/${item.id}`}>
                       <div className="cursor-pointer">
-                        <Image
-                          src={firstImage.src}
-                          alt={firstImage.alt}
-                          width={250}
-                          height={280}
-                          className="rounded-lg object-cover w-full h-[280px]"
-                        />
+                        <div className="relative w-full h-[280px] rounded-lg overflow-hidden">
+                          <Image
+                            src={firstImage.src}
+                            alt={firstImage.alt}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
                         <p className="mt-2 text-sm text-[#030C26]">{item.name}</p>
                       </div>
                     </Link>

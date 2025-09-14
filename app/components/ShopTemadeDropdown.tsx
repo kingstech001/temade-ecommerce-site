@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";  // import Link
+import { Work_Sans } from 'next/font/google';
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { categories, categoryImages, CategoryImage } from "../data/shopCategories";
@@ -9,6 +10,8 @@ type ShopTemadeDropdownProps = {
   onClose: () => void;
   onSelect: (category: string) => void;
 };
+
+const workSans = Work_Sans({ subsets: ['latin'], weight: ['400','500','600'] });
 
 const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -45,28 +48,23 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
     }, 300);
   };
 
-  // Helper: get only one color variant's images per product for the selected category
-  const getOneColorImagesForCategory = (category: string) => {
-    const items = categoryImages[category] || [];
-    return items.map((item: CategoryImage) => {
-      const firstColorVariant = item.colorVariants[0];
-      const firstImage = firstColorVariant.images[0];
-      return {
-        id: item.id, // Add id here for linking
-        src: firstImage.src,
-        alt: firstImage.alt,
-        productName: item.name,
-      };
-    });
+  const getCategoryHref = (category: string) => {
+    if (category === 'All') return '/shop';
+    return `/shop#${category.toLowerCase()}`;
   };
 
-  const images = getOneColorImagesForCategory(selectedCategory);
+  // Three static tiles that do not change with selection
+  const images = [
+    { id: 'tops', href: '/shop#tops', src: '/loop-Cotton-Adire.png', alt: 'Shop Tops', label: 'Shop Tops' },
+    { id: 'skirts', href: '/shop#skirts', src: '/flute-Cotton-Adire.png', alt: 'Shop Skirts', label: 'Shop Skirts' },
+    { id: 'pants', href: '/shop#pants', src: '/Rectangle.jpg', alt: 'Shop Pants', label: 'Shop Pants' },
+  ];
 
   return (
     <div className="fixed inset-0 z-20 flex top-16">
       <div className="flex-1 bg-black bg-opacity-50" onClick={handleClose} />
       <div
-        className={`relative w-full max-w-[1013px] h-full bg-[#FFFBEB] px-[50px] py-8 overflow-y-auto font-WorkSans right-0
+        className={`relative w-full max-w-[1013px] h-full bg-[#FFFBEB] px-[50px] py-8 overflow-y-auto ${workSans.className} right-0
           transform transition-transform duration-300 ease-in-out
           ${visible ? "translate-y-0" : "-translate-y-full"}`}
         style={{ willChange: "transform" }}
@@ -83,31 +81,35 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
         <div className="mt-6 flex flex-col text-[#030C26] text-lg font-normal space-y-4">
           <h2 className="font-semibold text-xl mb-2">Category</h2>
           {categories.map((cat) => (
-            <button
+            <Link
               key={cat}
-              onClick={() => handleCategoryClick(cat)}
+              href={getCategoryHref(cat)}
+              onClick={() => {
+                handleCategoryClick(cat);
+                handleClose();
+              }}
               className={`text-left transition-colors ${
                 selectedCategory === cat ? "text-[#8D2741] font-semibold underline" : ""
               }`}
             >
               {cat}
-            </button>
+            </Link>
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
           {images.map((img) => (
-            <Link key={img.id} href={`/shop/${img.id}`} onClick={handleClose}>
+            <Link key={img.id} href={img.href} onClick={handleClose}>
               <div className="text-center cursor-pointer block">
                 <Image
                   src={img.src}
                   alt={img.alt}
-                  width={254}
-                  height={282}
-                  className="object-cover rounded-lg"
+                  width={320}
+                  height={320}
+                  className="object-cover rounded-lg w-full h-[220px] sm:h-[240px] md:h-[260px]"
                 />
-                <p className="mt-2 text-[#030C26] text-sm text-left font-normal">
-                  {img.productName} - {img.alt}
+                <p className="mt-2 text-[#030C26] text-base font-medium text-left">
+                  {img.label}
                 </p>
               </div>
             </Link>

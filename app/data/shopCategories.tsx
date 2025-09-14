@@ -22,6 +22,7 @@ export type CategoryImage = {
 const defaultSizes = ["S", "M", "L", "XL"];
 
 export const baseCategoryImages: Record<string, CategoryImage[]> = {
+  "Burst Collection": [],
   Dresses: [
     {
       id: "column-dress",
