@@ -1,9 +1,5 @@
 'use client';
 
-
-import {  motion } from 'framer-motion';
-
-import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { EB_Garamond } from 'next/font/google';
 import Link from 'next/link';
@@ -15,11 +11,9 @@ const ebGaramond = EB_Garamond({
 
 
 function CategorySection() {
-  const sectionRef = useRef(null);
 
   return (
     <section
-      ref={sectionRef}
       className=" mt-[94px] bg-[#FFFBEB] md:min-h-[150vh] lg:h-[50vh] overflow-hidden flex flex-col justify-center  relative"
     >
       <div className=" bg-[#FFFBEB] min-h-screen md:min-h-[150vh] bg-center bg-no-repeat sm:mx-8"
@@ -37,19 +31,14 @@ function CategorySection() {
         </div>
         {/* Shop Now Button */}
         <Link href="/shop" passHref>
-          <motion.button
+          <button
             className="border-[2px] border-white hover:border-[#701d34] text-white px-8 py-4 rounded-lg hover:bg-[#701d34] transition flex items-center m-auto"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             SHOP NOW
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </motion.div>
-          </motion.button>
+            <span className="inline-block ml-2">
+              <ArrowRight className="w-5 h-5" />
+            </span>
+          </button>
         </Link>
       </div>
     </section>

@@ -4,7 +4,7 @@ import Link from "next/link";  // import Link
 import { Work_Sans } from 'next/font/google';
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { categories, categoryImages, CategoryImage } from "../data/shopCategories";
+import { categories } from "../data/shopCategories";
 
 type ShopTemadeDropdownProps = {
   onClose: () => void;

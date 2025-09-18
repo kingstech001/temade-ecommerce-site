@@ -2,14 +2,17 @@
 
 
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useMemo } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { galleryImages } from '../data/galleryImages'; // 👈 import here
+import { useMounted } from '@/app/hooks/useMounted';
 
 function GalleryCarousel() {
-  const autoplay = useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: false })
+  const mounted = useMounted();
+  const autoplay = useMemo(
+    () => Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: false }),
+    []
   );
 
   const [emblaRef] = useEmblaCarousel(
@@ -18,9 +21,10 @@ function GalleryCarousel() {
       align: 'start',
       dragFree: true,
     },
-    [autoplay.current]
+    [autoplay]
   );
 
+  if (!mounted) return null;
   return (
     <section className="relative bg-[#FFFBEB] py-16 overflow-hidden">
       <div ref={emblaRef} className="overflow-hidden cursor-grab">
