@@ -4,14 +4,14 @@ import Link from "next/link";  // import Link
 import { Work_Sans } from 'next/font/google';
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { categories, categoryImages, CategoryImage } from "../data/shopCategories";
+import { categories } from "../data/shopCategories";
 
 type ShopTemadeDropdownProps = {
   onClose: () => void;
   onSelect: (category: string) => void;
 };
 
-const workSans = Work_Sans({ subsets: ['latin'], weight: ['400','500','600'] });
+const workSans = Work_Sans({ subsets: ['latin'], weight: ['400', '500', '600'] });
 
 const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -69,17 +69,18 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
           ${visible ? "translate-y-0" : "-translate-y-full"}`}
         style={{ willChange: "transform" }}
       >
-        <div className="flex justify-end">
-          <button
-            onClick={handleClose}
-            className="text-black font-bold text-lg underline hover:text-[#8D2741]"
-          >
-            Close
-          </button>
-        </div>
 
-        <div className="mt-6 flex flex-col text-[#030C26] text-lg font-normal space-y-4">
-          <h2 className="font-semibold text-xl mb-2">Category</h2>
+
+        <div className="mt-6 flex flex-col text-[#030C26] text-lg font-normal space-y-2">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="font-semibold text-xl mb-2">Category</h2>
+            <button
+              onClick={handleClose}
+              className="text-black font-bold text-lg underline hover:text-[#8D2741]"
+            >
+              Close
+            </button>
+          </div>
           {categories.map((cat) => (
             <Link
               key={cat}
@@ -88,9 +89,8 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
                 handleCategoryClick(cat);
                 handleClose();
               }}
-              className={`text-left transition-colors ${
-                selectedCategory === cat ? "text-[#8D2741] font-semibold underline" : ""
-              }`}
+              className={`text-left transition-colors ${selectedCategory === cat ? "text-[#8D2741] font-semibold underline" : ""
+                }`}
             >
               {cat}
             </Link>
@@ -104,8 +104,8 @@ const ShopTemadeDropdown = ({ onClose, onSelect }: ShopTemadeDropdownProps) => {
                 <Image
                   src={img.src}
                   alt={img.alt}
-                  width={320}
-                  height={320}
+                  width={200}
+                  height={230}
                   className="object-cover rounded-lg w-full h-[220px] sm:h-[240px] md:h-[260px]"
                 />
                 <p className="mt-2 text-[#030C26] text-base font-medium text-left">
