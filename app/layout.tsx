@@ -9,6 +9,8 @@ import TopBar from "./components/TopBar"
 import { CartProvider } from "./context/CartContext"
 import { WishlistProvider } from "./context/WishlistContext"
 import { AuthProvider } from "./context/AuthContext"
+import Footer from "./components/Footer"
+import TextMarqueeBar from "./components/TextMarqueeBar"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +57,10 @@ export default function RootLayout({
               <TopBar />
               <NavBar />
               {children}
+              <TextMarqueeBar />
+              <div className="w-full flex justify-center">
+                <Footer />
+              </div>
             </CartProvider>
           </WishlistProvider>
         </AuthProvider>

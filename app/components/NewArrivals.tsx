@@ -41,9 +41,9 @@ function NewArrivals() {
     const selectedSize = selectedSizes[item.id];
     const selectedColor = selectedColors[item.id];
 
-    if (!selectedSize) {
+    if (!selectedSize && !selectedColor) {
       setToastType('error');
-      setToastMessage('Please select a size first');
+      setToastMessage('Please select a size and color first');
       return;
     }
 
@@ -57,11 +57,11 @@ function NewArrivals() {
           : parseFloat(item.price.replace(/[^0-9.-]+/g, '')) || 0,
       quantity: 1,
       size: selectedSize,
-      color: selectedColor || 'Default',
+      color: selectedColor,
     });
 
     setToastType('success');
-    setToastMessage(`Added ${item.name} (Size: ${selectedSize}) to cart`);
+    setToastMessage(`Added ${item.name} (Size: ${selectedSize}, Color: ${selectedColor}) to cart`);
   };
 
   const toggleWishlist = (item: NewArrivalItem) => {
@@ -90,10 +90,9 @@ function NewArrivals() {
       <div
         className={`fixed bottom-8 right-8 z-50 flex items-center gap-3 max-w-xs border shadow-lg rounded-lg px-5 py-3 text-sm font-semibold transition-opacity duration-300
           opacity-100 pointer-events-auto
-          ${
-            type === 'success'
-              ? 'bg-white border-green-400 text-green-700'
-              : 'bg-white border-red-400 text-red-600'
+          ${type === 'success'
+            ? 'bg-white border-green-400 text-green-700'
+            : 'bg-white border-red-400 text-red-600'
           }
         `}
         role="alert"
@@ -137,80 +136,85 @@ function NewArrivals() {
                   <button
                     onClick={() => toggleWishlist(item)}
                     aria-label="Add to wishlist"
-                    className={`absolute top-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur-sm transition-opacity ${
-                      hoveredItem === item.id ? 'opacity-100' : 'opacity-0'
-                    }`}
+                    className={`absolute top-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur-sm transition-opacity ${hoveredItem === item.id ? 'opacity-100' : 'opacity-0'
+                      }`}
                     type="button"
                   >
                     <Heart
-                      className={`w-6 h-6 ${
-                        wishlist.some((w) => w.id === item.id.toString())
-                          ? 'fill-[#8D2741] text-[#8D2741]'
-                          : 'text-[#8D2741]'
-                      }`}
+                      className={`w-6 h-6 ${wishlist.some((w) => w.id === item.id.toString())
+                        ? 'fill-[#8D2741] text-[#8D2741]'
+                        : 'text-[#8D2741]'
+                        }`}
                     />
                   </button>
                 </div>
 
-                <div className="mt-6 absolute bottom-0 left-0 right-0 bg-[#FBF7F3CC]/80 backdrop-blur-sm p-4 transition-transform transform group-hover:translate-y-0 translate-y-full">
-                  <h3 className="text-xl font-normal text-[#2C2C2C]">{item.name}</h3>
-
-                  {/* Size Selector */}
-                  <div className="flex gap-2 mt-2 flex-wrap">
-                    {item.sizes.map((size) => (
-                      <button
-                        key={size}
-                        type="button"
-                        aria-pressed={selectedSizes[item.id] === size}
-                        onClick={() =>
-                          setSelectedSizes((prev) => ({
-                            ...prev,
-                            [item.id]: prev[item.id] === size ? '' : size,
-                          }))
-                        }
-                        className={`px-3 py-1 rounded-[6px] text-sm border transition-colors duration-200 ${
-                          selectedSizes[item.id] === size
-                            ? 'bg-[#8D2741] text-white border-[#8D2741]'
-                            : 'text-[#2C2C2C] border-gray-300 hover:border-[#8D2741]'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Color Selector (Moved Below Size) */}
-                  <div className="flex gap-2 mt-2 flex-wrap">
-                    {item.colors.map((color) => (
-                      <button
-                        key={color}
-                        type="button"
-                        onClick={() =>
-                          setSelectedColors((prev) => ({
-                            ...prev,
-                            [item.id]: prev[item.id] === color ? '' : color,
-                          }))
-                        }
-                        className={`w-6 h-6 rounded border-2 transition ${
-                          selectedColors[item.id] === color
-                            ? 'border-[#8D2741]'
-                            : 'border-gray-300'
-                        }`}
-                        style={{ backgroundColor: color }}
-                        title={color}
-                      />
-                    ))}
-                  </div>
-
-                  <p className="text-lg font-medium text-[#2C2C2C] mt-2">
-                    {typeof item.price === 'number' ? `$${item.price.toFixed(2)}` : item.price}
+                <div className="absolute bottom-0 left-0 right-0 bg-[#FBF7F3CC]/80 backdrop-blur-sm p-4 transition-transform transform group-hover:translate-y-0 translate-y-full">
+                  <h3 className="text-[16px] font-sans font-normal text-[#2C2C2C]">{item.name}</h3>
+                  {/* Price */}
+                  <p className="text-lg font-medium text-[#2C2C2C] font-sans">
+                    {typeof item.price === "number"
+                      ? `₦${item.price.toLocaleString()}`
+                      : item.price
+                        ? `₦${parseFloat(item.price).toLocaleString()}`
+                        : "Price not available"}
                   </p>
+                  {/* Color Selector - only show if multiple colors are available */}
+                  {item.colors.length > 1 && (
+                    <div className="flex gap-2 my-2 flex-wrap">
+                      {item.colors.map((color) => (
+                        <button
+                          key={color}
+                          type="button"
+                          onClick={() =>
+                            setSelectedColors((prev) => ({
+                              ...prev,
+                              [item.id]: prev[item.id] === color ? "" : color,
+                            }))
+                          }
+                          className={`w-5 h-5 rounded border-2 transition ${selectedColors[item.id] === color ? "border-[#8D2741]" : "border-gray-300"
+                            }`}
+                          style={{ backgroundColor: color }}
+                          title={color}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Size Selector - only show if sizes are available */}
+                  {item.sizes.length > 0 && (
+                    <div className="flex gap-2  flex-wrap">
+                      {item.sizes.map((size) => (
+                        <button
+                          key={size}
+                          type="button"
+                          aria-pressed={selectedSizes[item.id] === size}
+                          onClick={() =>
+                            setSelectedSizes((prev) => ({
+                              ...prev,
+                              [item.id]: prev[item.id] === size ? "" : size,
+                            }))
+                          }
+                          className={`px-2 rounded-[6px] text-sm transition-colors duration-200 ${selectedSizes[item.id] === size
+                            ? "bg-[#8D2741] text-white border-[#8D2741]"
+                            : "text-[#2C2C2C] hover:border-[#8D2741]"
+                            }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+
+
+                  {/* Add to Cart Button */}
                   <button
                     type="button"
                     onClick={() => handleAddToCart(item)}
-                    className="mt-4 py-3 underline font-semibold text-[#2C2C2C] hover:text-[#701d34] transition-colors"
+                    className=" underline font-semibold text-[16px] font-sans text-[#2C2C2C] hover:text-[#701d34] transition-colors"
                   >
-                    Add to Cart
+                    ADD TO CART
                   </button>
                 </div>
               </div>

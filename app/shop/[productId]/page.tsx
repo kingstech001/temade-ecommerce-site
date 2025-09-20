@@ -4,20 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-
 import { categoryImages } from '@/app/data/shopCategories';
 import { Star } from 'lucide-react';
-
 import Link from 'next/link';
-
-import {  CheckCircle2, XCircle } from 'lucide-react';
-
+import { CheckCircle2, XCircle } from 'lucide-react';
 import { useCart } from '@/app/context/CartContext';
 import { Work_Sans } from 'next/font/google';
 
 const workSans = Work_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+    subsets: ['latin'],
+    weight: ['400', '500', '600'],
 });
 
 type ParamsType = {
@@ -101,7 +97,7 @@ export default function ProductDetailPage({ params }: Props) {
             </nav>
 
             {/* Main Section */}
-            <div className="flex flex-col lg:flex-row gap-8">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-8">
                 {/* Images */}
                 <div className="flex flex-col lg:flex-row gap-4 w-full lg:w-1/2">
                     {/* Thumbnails */}
@@ -134,28 +130,30 @@ export default function ProductDetailPage({ params }: Props) {
                 </div>
 
                 {/* Product Info */}
-                <div className="w-full lg:w-1/2 space-y-6">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-[#030C26]">{product.name}</h1>
+                <div className="w-full lg:w-1/2 space-y-4">
+                    <div>
+                        <h1 className="text-3xl sm:text-4xl font-bold text-[#030C26]">{product.name}</h1>
 
-                    <div className="flex items-center gap-2 text-yellow-400">
-                        {[...Array(4)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400" />
-                        ))}
-                        <span className="text-sm text-gray-500 ml-2">15 reviews</span>
+                        <div className="flex items-center gap-2 text-yellow-400">
+                            {[...Array(4)].map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-yellow-400" />
+                            ))}
+                            <span className="text-sm text-gray-500 ml-2">15 reviews</span>
+                        </div>
                     </div>
 
                     <p className="text-3xl font-bold text-[#252525]">₦{product.price.toFixed(2)}</p>
-                    <p className="text-gray-600 leading-relaxed">{product.description}</p>
+                    <p className="text-gray-600 leading-relaxed text-[16px]">{product.description}</p>
 
                     {/* Color */}
                     <div className="flex items-center gap-3">
-                        <h2 className="font-semibold text-[#030C26]">Color:</h2>
+                        <h2 className="font-normal text-[#030C26]">Color:</h2>
                         <div className="flex gap-2 flex-wrap">
                             {product.colorVariants.map((variant, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setMainImage(variant.images[0])}
-                                    className={`w-6 h-6 rounded-full border-2 transition ${mainImage.src === variant.images[0].src ? 'border-pink-600' : 'border-gray-300'
+                                    className={`w-8 h-8 rounded-full border-2 border-white  transition ${mainImage.src === variant.images[0].src ? ' outline-pink-600 outline ' : 'outline-gray-300'
                                         }`}
                                     style={{ backgroundColor: variant.colorName }}
                                     title={variant.colorName}
@@ -165,14 +163,14 @@ export default function ProductDetailPage({ params }: Props) {
                     </div>
 
                     {/* Size */}
-                    <div className="space-y-1">
-                        <h2 className="font-semibold text-[#030C26]">Size:</h2>
+                    <div className="flex items-center gap-5">
+                        <h2 className="font-normal text-[#030C26]">Size:</h2>
                         <div className="flex gap-3 flex-wrap">
                             {product.sizes.map((size) => (
                                 <button
                                     key={size}
                                     onClick={() => setSelectedSize((prev) => (prev === size ? '' : size))}
-                                    className={`px-4 py-1.5 border rounded-lg text-sm transition ${selectedSize === size
+                                    className={`px-4 py-1.5 border font-semibold rounded-lg text-[16px] transition ${selectedSize === size
                                         ? 'bg-[#8D2741] text-white border-[#8D2741]'
                                         : 'text-[#2C2C2C] border-gray-300 hover:border-[#8D2741]'
                                         }`}
@@ -198,8 +196,10 @@ export default function ProductDetailPage({ params }: Props) {
                         </button>
                     </div>
 
-                    <p className="text-sm text-gray-600"><span className="font-semibold text-[#030C26]">Material:</span> 100% Cotton</p>
-                    <p className="text-sm text-gray-600"><span className="font-semibold text-[#030C26]">Category:</span> <span className="capitalize">{category}</span></p>
+                    <div>
+                        <p className="text-sm font-semibold text-[#464646] py-[24px] border-y">Material:<span className="font-normal text-[16px] text-[#626262] ml-4">100% Cotton</span></p>
+                        <p className="text-sm font-semibold text-[#464646] py-[24px] border-b"><span className="font-semibold text-[#464646]">Category:</span> <span className="font-normal text-[16px] text-[#626262] ml-4">{category}</span></p>
+                    </div>
                 </div>
             </div>
 
@@ -226,10 +226,10 @@ export default function ProductDetailPage({ params }: Props) {
             {/* Notification */}
             <div
                 className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 max-w-sm shadow-lg rounded-lg px-5 py-3 text-sm font-medium transition-opacity duration-300 ${notification
-                        ? notification.type === 'success'
-                            ? 'bg-green-100 text-green-800 border border-green-400 opacity-100'
-                            : 'bg-red-100 text-red-700 border border-red-400 opacity-100'
-                        : 'opacity-0 pointer-events-none'
+                    ? notification.type === 'success'
+                        ? 'bg-green-100 text-green-800 border border-green-400 opacity-100'
+                        : 'bg-red-100 text-red-700 border border-red-400 opacity-100'
+                    : 'opacity-0 pointer-events-none'
                     }`}
                 role="alert"
             >

@@ -70,7 +70,7 @@ const NavBar = () => {
               SHOP TEMADE
               <ChevronDown className="w-4 h-4" />
             </button>
-            <Link href="/contact">LOOKBOOK</Link>
+            <Link href="/lookbook">LOOKBOOK</Link>
           </div>
 
           {/* Icons */}
@@ -91,11 +91,11 @@ const NavBar = () => {
             {/* Cart Icon */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative hover:text-[#8D2741] transition-colors flex text-[14px]"
+              className="relative hover:text-[#8D2741] transition-colors flex items-center text-[14px]"
             >
               <ShoppingCart />
               {totalCartQuantity > 0 ? (
-                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
+                <span className="absolute z-10 text-[14px] left-5 font-bold px-1">
                   [{totalCartQuantity}]
                 </span>
               ) : "[0]"}
@@ -142,7 +142,7 @@ const NavBar = () => {
           >
             SHOP TEMADE
           </button>
-          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>LOOKBOOK</Link>
+          <Link href="/lookbook" onClick={() => setIsMobileMenuOpen(false)}>LOOKBOOK</Link>
 
           <div className="flex sm:hidden w-full space-x-5">
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)}><Search /></Link>
@@ -157,11 +157,11 @@ const NavBar = () => {
             {/* Mobile Cart Icon */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative hover:text-[#8D2741] transition-colors flex text-[14px]"
+              className="relative hover:text-[#8D2741] transition-colors flex items-center text-[14px]"
             >
               <ShoppingCart />
               {totalCartQuantity > 0 ? (
-                <span className="absolute z-10 top-[1px] text-[14px] left-5 font-bold px-1">
+                <span className="absolute z-10  text-[14px] left-5 font-bold px-1">
                   [{totalCartQuantity}]
                 </span>
               ) : "[0]"}
