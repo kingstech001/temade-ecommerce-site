@@ -20,6 +20,7 @@ function Shop() {
   const [activeCategory, setActiveCategory] = useState<string>("")
   const { addToCart } = useCart()
 
+  // Scroll to hash on mount
   useEffect(() => {
     if (typeof window === "undefined") return
     const hash = window.location.hash
@@ -29,6 +30,7 @@ function Shop() {
     }
   }, [])
 
+  // Toast auto-dismiss
   useEffect(() => {
     if (toastMessage) {
       const timer = setTimeout(() => setToastMessage(null), 3000)
@@ -36,33 +38,33 @@ function Shop() {
     }
   }, [toastMessage])
 
+  // Track active category on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = ""
+      Object.keys(categoryImages)
+        .filter((category) => category !== "All")
+        .forEach((category) => {
+          const section = document.getElementById(category.toLowerCase())
+          if (section) {
+            const sectionTop = section.offsetTop - 100 // adjust offset if navbar height differs
+            const sectionHeight = section.offsetHeight
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+              current = category
+            }
+          }
+        })
+      setActiveCategory(current)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const handleAddToCart = (item: CategoryImage) => {
     const selectedSize = selectedSizes[item.id]
     const selectedColor = selectedColors[item.id]
     const firstImage = item.colorVariants[0]?.images[0]
-
-    useEffect(() => {
-      const handleScroll = () => {
-        let current = ""
-        Object.keys(categoryImages)
-          .filter((category) => category !== "All")
-          .forEach((category) => {
-            const section = document.getElementById(category.toLowerCase())
-            if (section) {
-              const sectionTop = section.offsetTop - 100 // adjust offset if navbar height differs
-              const sectionHeight = section.offsetHeight
-              if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                current = category
-              }
-            }
-          })
-        setActiveCategory(current)
-      }
-
-      window.addEventListener("scroll", handleScroll)
-      return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
-
 
     if (!selectedSize && item.sizes && item.sizes.length > 0) {
       setToastType("error")
