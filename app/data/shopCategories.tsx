@@ -22,8 +22,7 @@ export type CategoryImage = {
 const defaultSizes = ["S", "M", "L", "XL"];
 
 export const baseCategoryImages: Record<string, CategoryImage[]> = {
-  "Burst Collection": [],
-  Dresses: [
+  "TOPS": [
     {
       id: "column-dress",
       name: "Column Dress",
@@ -35,7 +34,6 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
           colorName: "Pink",
           images: [
             { src: "/coloumn-Stretch-Woven2.jpg", alt: "Column Stretch Pink Front" },
-            { src: "/coloumn-Stretch-Woven1.jpg", alt: "Floral Dress Blue Back" },
             { src: "/coloumn-Stretch-Woven3.jpg", alt: "Column Stretch Pink Side" },
           ],
         },
@@ -43,7 +41,6 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
           colorName: "Black",
           images: [
             { src: "/coloumn-Cotton-Adire.jpg", alt: "column dress black  Front" },
-            { src: "/coloumn-Cotton-Adire2.jpg", alt: "column dress black  side" },
             { src: "/coloumn-Cotton-Adire3.jpg", alt: "column dress black back" },
           ],
         }
@@ -61,7 +58,6 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
           colorName: "white",
           images: [
             { src: "/clarinet-Cotton-Adire.jpg", alt: "clarinet cotton adire white Front" },
-            { src: "/clarinet-Cotton-Adire2.jpg", alt: "clarinet cotton white Side" },
             { src: "/clarinet-Cotton-Adire3.jpg", alt: "clarinet cotton adire white Back" },
           ],
         },
@@ -69,7 +65,6 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
           colorName: "Blue",
           images: [
             { src: "/clarinet-Stretch-Woven.jpg", alt: "clarinet stretch Front" },
-            { src: "/clarinet-Stretch-Woven2.jpg", alt: "clarinet stretch side" },
             { src: "/clarinet-Stretch-Woven3.jpg", alt: "clarinet stretch back" },
           ],
           price: 115000,
@@ -77,7 +72,7 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
       ],
     },
   ],
-  Skirts: [
+  SKIRTS: [
     {
       id: "flute-skirt",
       name: "Flute Skirt",
@@ -86,17 +81,25 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
       sizes: defaultSizes,
       colorVariants: [
         {
-          colorName: "Pink",
+          colorName: "white",
           images: [
-            { src: "/flute-Cotton-Adire.png", alt: "Flute Skirt Pink Front" },
-            { src: "/flute-Cotton-Adire2.png", alt: "Flute Skirt Pink Back" },
+            { src: "/clarinet-Cotton-Adire.jpg", alt: "clarinet cotton adire white Front" },
+            { src: "/clarinet-Cotton-Adire3.jpg", alt: "clarinet cotton adire white Back" },
           ],
+        },
+        {
+          colorName: "Blue",
+          images: [
+            { src: "/clarinet-Stretch-Woven.jpg", alt: "clarinet stretch Front" },
+            { src: "/clarinet-Stretch-Woven3.jpg", alt: "clarinet stretch back" },
+          ],
+          price: 115000,
         },
       ],
     },
    
   ],
-  Tops: [
+  PANTS: [
  {
       id: "loop-top",
       name: "Loop Top",
@@ -108,7 +111,13 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
           colorName: "Black",
           images: [
             { src: "/loop-Cotton-Adire.png", alt: "loop-top Front" },
-            { src: "/loop-Cotton-Adire2.png", alt: "loop-top back" },
+            { src: "/loop-Cotton-Adire3.png", alt: "loop-top side" },
+          ],
+        },
+        {
+          colorName: "Red",
+          images: [
+            { src: "/loop-Cotton-Adire.png", alt: "loop-top Front" },
             { src: "/loop-Cotton-Adire3.png", alt: "loop-top side" },
           ],
         },
@@ -138,12 +147,12 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
       ],
     },
   ],
-  Pants: [
+  DRESSES: [
     {
       id: "floral-dress-p",
       name: "Floral Dress",
       price: 45.99,
-      description: "Comfortable floral pants designed for casual wear with a touch of elegance.",
+      description: "Comfortable floral dress designed for casual wear with a touch of elegance.",
       sizes: defaultSizes,
       colorVariants: [
         {
@@ -186,49 +195,49 @@ export const baseCategoryImages: Record<string, CategoryImage[]> = {
       ],
     },
   ],
-  "The Wholeness Collection": [
+  JACKETS: [
     {
-      id: "floral-dress-w",
+      id: "floral-dress-p",
       name: "Floral Dress",
-      price: 59.99,
-      description: "Exclusive floral dress from The Wholeness Collection featuring premium fabric and unique design.",
+      price: 45.99,
+      description: "Comfortable floral dress designed for casual wear with a touch of elegance.",
       sizes: defaultSizes,
       colorVariants: [
         {
-          colorName: "Purple",
+          colorName: "Beige",
           images: [
-            { src: "/Rectangle.jpg", alt: "Floral Dress Purple Front" },
-            { src: "/Rectangle-2.jpg", alt: "Floral Dress Purple Back" },
+            { src: "/Rectangle-2.jpg", alt: "Floral Pants Beige Front" },
+            { src: "/Rectangle-2.jpg", alt: "Floral Pants Beige Back" },
           ],
         },
         {
-          colorName: "Teal",
+          colorName: "Brown",
           images: [
-            { src: "/Rectangle.jpg", alt: "Floral Dress Teal Front" },
-            { src: "/Rectangle-2.jpg", alt: "Floral Dress Teal Back" },
+            { src: "/Rectangle.jpg", alt: "Floral Pants Brown Front" },
+            { src: "/Rectangle-2.jpg", alt: "Floral Pants Brown Side" },
           ],
         },
       ],
     },
     {
-      id: "casual-maxi-w",
+      id: "casual-maxi-p",
       name: "Casual Maxi",
-      price: 49.99,
-      description: "Stylish and comfortable casual maxi dress designed exclusively for The Wholeness Collection.",
+      price: 39.99,
+      description: "Classic casual pants suitable for everyday wear with a modern fit.",
       sizes: defaultSizes,
       colorVariants: [
         {
-          colorName: "Maroon",
+          colorName: "Gray",
           images: [
-            { src: "/Rectangle.jpg", alt: "Casual Maxi Maroon Front" },
-            { src: "/Rectangle-2.jpg", alt: "Casual Maxi Maroon Side" },
+            { src: "/Rectangle.jpg", alt: "Casual Pants Gray Front" },
+            { src: "/Rectangle-2.jpg", alt: "Casual Pants Gray Side" },
           ],
         },
         {
-          colorName: "Navy",
+          colorName: "Black",
           images: [
-            { src: "/Rectangle.jpg", alt: "Casual Maxi Navy Front" },
-            { src: "/Rectangle-2.jpg", alt: "Casual Maxi Navy Back" },
+            { src: "/Rectangle.jpg", alt: "Casual Pants Black Front" },
+            { src: "/Rectangle-2.jpg", alt: "Casual Pants Black Back" },
           ],
         },
       ],
