@@ -4,14 +4,20 @@ import { ChevronDown, Heart, CheckCircle2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { categoryImages } from "../data/shopCategories"
-import type { CategoryImage } from "../data/shopCategories"
-import { useCart } from "../context/CartContext"
-import { useWishlist } from "../context/WishlistContext"
+import { baseCategoryImages, CategoryImage } from "../../../data/shopCategories"
+import { useCart } from "../../../context/CartContext"
+import { useWishlist } from "../../../context/WishlistContext"
+import { notFound } from "next/navigation"
 
 type ToastType = "success" | "error"
 
-function Shop() {
+interface CategoryPageProps {
+  params: Promise<{
+    category: string
+  }>
+}
+
+function CategoryPage({ params }: CategoryPageProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [selectedSizes, setSelectedSizes] = useState<{ [key: string]: string }>({})
   const [selectedColors, setSelectedColors] = useState<{ [key: string]: string }>({})
@@ -19,6 +25,22 @@ function Shop() {
   const [toastType, setToastType] = useState<ToastType>("success")
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist()
   const { addToCart } = useCart()
+  const [category, setCategory] = useState<string>("")
+  const [categoryItems, setCategoryItems] = useState<CategoryImage[]>([])
+
+  useEffect(() => {
+    const loadCategory = async () => {
+      const resolvedParams = await params
+      const categoryName = resolvedParams.category.toUpperCase()
+      setCategory(categoryName)
+      const items = baseCategoryImages[categoryName as keyof typeof baseCategoryImages]
+      if (!items) {
+        notFound()
+      }
+      setCategoryItems(items)
+    }
+    loadCategory()
+  }, [params])
 
   // Toast auto-dismiss
   useEffect(() => {
@@ -27,6 +49,17 @@ function Shop() {
       return () => clearTimeout(timer)
     }
   }, [toastMessage])
+
+  // Show loading state while category is being loaded
+  if (!category || categoryItems.length === 0) {
+    return (
+      <div className="max-w-[1280px] m-auto px-8 py-4">
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="text-lg">Loading...</div>
+        </div>
+      </div>
+    )
+  }
 
   const handleAddToCart = (item: CategoryImage) => {
     const selectedSize = selectedSizes[item.id]
@@ -105,22 +138,26 @@ function Shop() {
             Home
           </Link>
           <h2>/</h2>
-          <h2 className="text-[16px] font-normal text-[#838383]">Shop</h2>
+          <Link href="/shop" className="text-[16px] font-normal text-[#CA6F86]">
+            Shop
+          </Link>
+          <h2>/</h2>
+          <h2 className="text-[16px] font-normal text-[#838383]">{category}</h2>
         </div>
       </div>
 
       {/* Header with category navigation */}
       <div className="flex items-center justify-between my-4">
         <ul className="flex gap-2">
-          {categories.map((category) => (
-            <li key={category} className="inline-block">
+          {categories.map((cat) => (
+            <li key={cat} className="inline-block">
               <Link
-                href={category === "ALL" ? "/shop" : `/shop/categories/${category.toLowerCase()}`}
+                href={cat === "ALL" ? "/shop" : `/shop/categories/${cat.toLowerCase()}`}
                 className={`font-normal font-WorkSans transition-colors md:text-[16px] text-[10px] ${
-                  category === "ALL" ? "text-black" : "text-gray-500"
+                  cat === category ? "text-black" : "text-gray-500"
                 }`}
               >
-                {category}
+                {cat}
               </Link>
             </li>
           ))}
@@ -134,13 +171,13 @@ function Shop() {
 
       {/* Category title */}
       <div className="mb-8">
-        <h2 className="text-2xl md:text-4xl font-medium text-[#16161A] font-sans">ALL PRODUCTS</h2>
-        <p className="text-gray-600 mt-2">{categoryImages.All.length} items</p>
+        <h2 className="text-2xl md:text-4xl font-medium text-[#16161A] font-sans">{category}</h2>
+        <p className="text-gray-600 mt-2">{categoryItems.length} items</p>
       </div>
 
-      {/* All products grid */}
+      {/* Products grid */}
       <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {categoryImages.All.map((item: CategoryImage) => {
+        {categoryItems.map((item: CategoryImage) => {
           // Use the first image of the first color variant as the display image
           const firstImage = item.colorVariants[0]?.images[0]
           const availableSizes = item.sizes || []
@@ -261,4 +298,4 @@ function Shop() {
   )
 }
 
-export default Shop
+export default CategoryPage
